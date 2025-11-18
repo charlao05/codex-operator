@@ -27,6 +27,8 @@ def _parse_args() -> argparse.Namespace:
 
     nf_parser = subparsers.add_parser("nf", help="Gerar instruções para emissão de nota fiscal a partir de arquivo de vendas")
     nf_parser.add_argument("--sales-file", required=True, help="Caminho para o arquivo JSON contendo a venda ou lista de vendas")
+    nf_parser.add_argument("--send-whatsapp", help="(Opcional) Enviar mensagem via WhatsApp para este número (+55 DDD NNNNNNNNN)")
+    nf_parser.add_argument("--save-output", help="(Opcional) Salvar resultado em JSON")
 
     return parser.parse_args()
 
@@ -84,8 +86,32 @@ def main() -> int:
                 out = nf_agent.prepare_invoice_steps(sale)
                 results.append(out)
                 logger.info("Resultado para venda: %s", json.dumps(out, ensure_ascii=False, indent=2))
+
+                # Enviar via WhatsApp se --send-whatsapp foi fornecido
+                send_whatsapp = getattr(args, "send_whatsapp", None)
+                if send_whatsapp:
+                    try:
+                        from src.integrations.whatsapp_api import send_nf_notification
+                        client_name = sale.get("client_name", sale.get("cliente_nome", "Cliente"))
+                        amount = sale.get("amount", sale.get("valor_total", 0.0))
+                        ws_result = send_nf_notification(send_whatsapp, client_name, float(amount), out["explicacao"])
+                        logger.info("Mensagem WhatsApp enviada: %s", ws_result)
+                    except Exception as ws_err:
+                        logger.exception("Falha ao enviar WhatsApp: %s", ws_err)
+
             except Exception:
                 logger.exception("Falha ao processar registro de venda: %s", sale)
+
+        # Salvar em arquivo se --save-output foi fornecido
+        save_output = getattr(args, "save_output", None)
+        if save_output:
+            try:
+                with open(save_output, "w", encoding="utf-8") as f:
+                    json.dump(results, f, ensure_ascii=False, indent=2)
+                logger.info("Resultado salvo em %s", save_output)
+            except Exception as save_err:
+                logger.exception("Falha ao salvar resultado em %s: %s", save_output, save_err)
+
         # Saída final: imprime JSON agregando resultados
         print(json.dumps(results, ensure_ascii=False, indent=2))
         return 0
