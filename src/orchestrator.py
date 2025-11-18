@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 
 from src.agents import site_agent
@@ -14,6 +15,41 @@ logger = get_logger("orchestrator")
 
 
 # Lembrar: respeite sempre os Termos de Uso do serviço alvo antes de rodar automações.
+
+def _clean_markdown(text: str) -> str:
+    """Remove formatação Markdown para texto puro legível em email.
+    
+    Remove: **negrito**, *itálico*, __sublinhado__, `código`, # títulos, etc.
+    Mantém a estrutura e quebras de linha.
+    """
+    if not text:
+        return text
+    
+    # Remove **negrito** → texto
+    text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)
+    
+    # Remove *itálico* → texto
+    text = re.sub(r'\*(.+?)\*', r'\1', text)
+    
+    # Remove __sublinhado__ → texto
+    text = re.sub(r'__(.+?)__', r'\1', text)
+    
+    # Remove _itálico_ → texto
+    text = re.sub(r'_(.+?)_', r'\1', text)
+    
+    # Remove `código` → texto
+    text = re.sub(r'`(.+?)`', r'\1', text)
+    
+    # Remove # títulos → Título:
+    text = re.sub(r'^#{1,6}\s+(.+?)$', r'\1:', text, flags=re.MULTILINE)
+    
+    # Remove > citações mantendo texto
+    text = re.sub(r'^>\s+(.+?)$', r'\1', text, flags=re.MULTILINE)
+    
+    # Remove [link](url) → link
+    text = re.sub(r'\[(.+?)\]\((.+?)\)', r'\1', text)
+    
+    return text
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Orquestrador de automações")
@@ -138,7 +174,8 @@ def main() -> int:
                             logger.warning("Venda não contém email do cliente; pulando envio de email: %s", sale)
                         else:
                             subj = f"Instruções para emissão da NFS-e — {sale.get('id', '')}"
-                            body = out.get("explicacao", "")
+                            # Limpar Markdown da explicação para ficar legível no email
+                            body = _clean_markdown(out.get("explicacao", ""))
                             em_result = email_api.send_email([recipient], subj, body)
                             logger.info("Resultado envio email: %s", em_result)
                     except Exception as em_err:
