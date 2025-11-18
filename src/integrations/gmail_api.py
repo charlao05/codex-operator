@@ -42,7 +42,7 @@ class GmailAPI:
                 "Dependências Google não encontradas. Instale 'google-api-python-client' e 'google-auth'."
             ) from exc
 
-        # Prioridade 1: Service account + delegated user
+        # Prioridade 1: Service account + delegated user (domain-wide delegation)
         if self.service_account_file and self.delegated_user:
             creds = service_account.Credentials.from_service_account_file(
                 self.service_account_file, scopes=["https://www.googleapis.com/auth/gmail.send"]
@@ -50,6 +50,15 @@ class GmailAPI:
             creds = creds.with_subject(self.delegated_user)
             service = build("gmail", "v1", credentials=creds)
             logger.info("Gmail service built with Service Account + Delegation")
+            return service
+
+        # Prioridade 1b: Service account (simples, sem delegação)
+        if self.service_account_file:
+            creds = service_account.Credentials.from_service_account_file(
+                self.service_account_file, scopes=["https://www.googleapis.com/auth/gmail.send"]
+            )
+            service = build("gmail", "v1", credentials=creds)
+            logger.info("Gmail service built with Service Account (no delegation)")
             return service
 
         # Prioridade 2: OAuth credentials file
@@ -75,7 +84,7 @@ class GmailAPI:
         raise RuntimeError(
             "Nenhuma configuração de credenciais do Gmail encontrada. "
             "Configure um destes:\n"
-            "1. GMAIL_SERVICE_ACCOUNT_FILE + GMAIL_DELEGATED_USER\n"
+            "1. GMAIL_SERVICE_ACCOUNT_FILE (com ou sem GMAIL_DELEGATED_USER)\n"
             "2. GMAIL_CREDENTIALS_FILE\n"
             "3. GMAIL_ACCESS_TOKEN (para Cloud Shell)"
         )
