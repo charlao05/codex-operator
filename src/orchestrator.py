@@ -29,6 +29,9 @@ def _parse_args() -> argparse.Namespace:
     nf_parser.add_argument("--sales-file", required=True, help="Caminho para o arquivo JSON contendo a venda ou lista de vendas")
     nf_parser.add_argument("--send-whatsapp", help="(Opcional) Enviar mensagem via WhatsApp para este número (+55 DDD NNNNNNNNN)")
     nf_parser.add_argument("--send-telegram", help="(Opcional) Enviar mensagem via Telegram para este chat_id")
+    nf_parser.add_argument("--create-event", action="store_true", help="(Opcional) Criar evento no Google Calendar para a emissão da nota")
+    nf_parser.add_argument("--send-email", action="store_true", help="(Opcional) Enviar notificação por email ao cliente")
+    nf_parser.add_argument("--send-gmail", action="store_true", help="(Opcional) Enviar notificação via Gmail API ao cliente")
     nf_parser.add_argument("--save-output", help="(Opcional) Salvar resultado em JSON")
 
     return parser.parse_args()
@@ -111,6 +114,46 @@ def main() -> int:
                         logger.info("Mensagem Telegram enviada: %s", tg_result)
                     except Exception as tg_err:
                         logger.exception("Falha ao enviar Telegram: %s", tg_err)
+
+                # Criar evento no Google Calendar se solicitado
+                if getattr(args, "create_event", False):
+                    try:
+                        from src.integrations.google_calendar import GoogleCalendarAPI
+
+                        gc = GoogleCalendarAPI()
+                        gc_result = gc.create_event_from_sale(sale)
+                        logger.info("Google Calendar result: %s", gc_result)
+                    except Exception as gc_err:
+                        logger.exception("Falha ao criar evento no Google Calendar: %s", gc_err)
+
+                # Enviar email se solicitado
+                if getattr(args, "send_email", False):
+                    try:
+                        from src.integrations.email_api import EmailAPI
+
+                        email_api = EmailAPI()
+                        # tenta obter email do cliente (client_email ou email)
+                        recipient = sale.get("client_email") or sale.get("email")
+                        if not recipient:
+                            logger.warning("Venda não contém email do cliente; pulando envio de email: %s", sale)
+                        else:
+                            subj = f"Instruções para emissão da NFS-e — {sale.get('id', '')}"
+                            body = out.get("explicacao", "")
+                            em_result = email_api.send_email([recipient], subj, body)
+                            logger.info("Resultado envio email: %s", em_result)
+                    except Exception as em_err:
+                        logger.exception("Falha ao enviar email: %s", em_err)
+
+                # Enviar via Gmail API se solicitado
+                if getattr(args, "send_gmail", False):
+                    try:
+                        from src.integrations.gmail_api import GmailAPI
+
+                        gmail = GmailAPI()
+                        gm_result = gmail.send_message_from_sale(sale)
+                        logger.info("Resultado envio Gmail: %s", gm_result)
+                    except Exception as gm_err:
+                        logger.exception("Falha ao enviar via Gmail API: %s", gm_err)
 
             except Exception:
                 logger.exception("Falha ao processar registro de venda: %s", sale)

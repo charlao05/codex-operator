@@ -6,3 +6,8 @@ rich
 openai
 pytest
 
+# Google API clients (opcional — instalar se for usar Calendar/Gmail APIs)
+google-api-python-client>=2.0.0
+google-auth>=2.0.0
+google-auth-httplib2>=0.1.0
+
