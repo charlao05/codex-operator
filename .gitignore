@@ -1,0 +1,35 @@
+# Ambientes virtuais
+.venv/
+venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Test cache
+.pytest_cache/
+
+# Ambiente / segredos
+.env
+*.env
+
+# Logs e dados locais
+logs/
+data/
+*.log
+
+# Playwright / reports
+playwright-report/
+report/
+
+# Editor/temp files
+.vscode/
+*.swp
+*.swo
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,8 @@
+playwright
+httpx
+pyyaml
+python-dotenv
+rich
+openai
+pytest
+
