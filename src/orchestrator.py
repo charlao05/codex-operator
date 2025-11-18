@@ -28,6 +28,7 @@ def _parse_args() -> argparse.Namespace:
     nf_parser = subparsers.add_parser("nf", help="Gerar instruções para emissão de nota fiscal a partir de arquivo de vendas")
     nf_parser.add_argument("--sales-file", required=True, help="Caminho para o arquivo JSON contendo a venda ou lista de vendas")
     nf_parser.add_argument("--send-whatsapp", help="(Opcional) Enviar mensagem via WhatsApp para este número (+55 DDD NNNNNNNNN)")
+    nf_parser.add_argument("--send-telegram", help="(Opcional) Enviar mensagem via Telegram para este chat_id")
     nf_parser.add_argument("--save-output", help="(Opcional) Salvar resultado em JSON")
 
     return parser.parse_args()
@@ -98,6 +99,18 @@ def main() -> int:
                         logger.info("Mensagem WhatsApp enviada: %s", ws_result)
                     except Exception as ws_err:
                         logger.exception("Falha ao enviar WhatsApp: %s", ws_err)
+
+                # Enviar via Telegram se --send-telegram foi fornecido
+                send_telegram = getattr(args, "send_telegram", None)
+                if send_telegram:
+                    try:
+                        from src.integrations.telegram_api import send_nf_notification as send_nf_telegram
+                        client_name = sale.get("client_name", sale.get("cliente_nome", "Cliente"))
+                        amount = sale.get("amount", sale.get("valor_total", 0.0))
+                        tg_result = send_nf_telegram(send_telegram, client_name, float(amount), out["explicacao"])
+                        logger.info("Mensagem Telegram enviada: %s", tg_result)
+                    except Exception as tg_err:
+                        logger.exception("Falha ao enviar Telegram: %s", tg_err)
 
             except Exception:
                 logger.exception("Falha ao processar registro de venda: %s", sale)
