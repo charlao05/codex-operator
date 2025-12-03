@@ -4,52 +4,17 @@ from __future__ import annotations
 
 import argparse
 import json
-import re
 import sys
 
 from src.agents import site_agent
 from src.agents import nf_agent
 from src.utils.logging_utils import get_logger
+from src.utils.formatting_utils import clean_markdown
 
 logger = get_logger("orchestrator")
 
 
 # Lembrar: respeite sempre os Termos de Uso do serviço alvo antes de rodar automações.
-
-def _clean_markdown(text: str) -> str:
-    """Remove formatação Markdown para texto puro legível em email.
-    
-    Remove: **negrito**, *itálico*, __sublinhado__, `código`, # títulos, etc.
-    Mantém a estrutura e quebras de linha.
-    """
-    if not text:
-        return text
-    
-    # Remove **negrito** → texto
-    text = re.sub(r'\*\*(.+?)\*\*', r'\1', text)
-    
-    # Remove *itálico* → texto
-    text = re.sub(r'\*(.+?)\*', r'\1', text)
-    
-    # Remove __sublinhado__ → texto
-    text = re.sub(r'__(.+?)__', r'\1', text)
-    
-    # Remove _itálico_ → texto
-    text = re.sub(r'_(.+?)_', r'\1', text)
-    
-    # Remove `código` → texto
-    text = re.sub(r'`(.+?)`', r'\1', text)
-    
-    # Remove # títulos → Título:
-    text = re.sub(r'^#{1,6}\s+(.+?)$', r'\1:', text, flags=re.MULTILINE)
-    
-    # Remove > citações mantendo texto
-    text = re.sub(r'^>\s+(.+?)$', r'\1', text, flags=re.MULTILINE)
-    
-    # Remove [link](url) → link
-    text = re.sub(r'\[(.+?)\]\((.+?)\)', r'\1', text)
-    
-    return text
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Orquestrador de automações")
@@ -134,7 +99,9 @@ def main() -> int:
                         from src.integrations.whatsapp_api import send_nf_notification
                         client_name = sale.get("client_name", sale.get("cliente_nome", "Cliente"))
                         amount = sale.get("amount", sale.get("valor_total", 0.0))
-                        ws_result = send_nf_notification(send_whatsapp, client_name, float(amount), out["explicacao"])
+                        # Limpar Markdown para melhor apresentação no WhatsApp
+                        msg_body = clean_markdown(out["explicacao"])
+                        ws_result = send_nf_notification(send_whatsapp, client_name, float(amount), msg_body)
                         logger.info("Mensagem WhatsApp enviada: %s", ws_result)
                     except Exception as ws_err:
                         logger.exception("Falha ao enviar WhatsApp: %s", ws_err)
@@ -146,7 +113,9 @@ def main() -> int:
                         from src.integrations.telegram_api import send_nf_notification as send_nf_telegram
                         client_name = sale.get("client_name", sale.get("cliente_nome", "Cliente"))
                         amount = sale.get("amount", sale.get("valor_total", 0.0))
-                        tg_result = send_nf_telegram(send_telegram, client_name, float(amount), out["explicacao"])
+                        # Limpar Markdown para melhor apresentação no Telegram
+                        msg_body = clean_markdown(out["explicacao"])
+                        tg_result = send_nf_telegram(send_telegram, client_name, float(amount), msg_body)
                         logger.info("Mensagem Telegram enviada: %s", tg_result)
                     except Exception as tg_err:
                         logger.exception("Falha ao enviar Telegram: %s", tg_err)
@@ -175,7 +144,7 @@ def main() -> int:
                         else:
                             subj = f"Instruções para emissão da NFS-e — {sale.get('id', '')}"
                             # Limpar Markdown da explicação para ficar legível no email
-                            body = _clean_markdown(out.get("explicacao", ""))
+                            body = clean_markdown(out.get("explicacao", ""))
                             em_result = email_api.send_email([recipient], subj, body)
                             logger.info("Resultado envio email: %s", em_result)
                     except Exception as em_err:
