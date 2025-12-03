@@ -1,0 +1,87 @@
+{
+  "timestamp": "2025-12-03T19:27:37.059788",
+  "wave": 1,
+  "contacts": [
+    {
+      "name": "Mariana",
+      "company": "Studio Beleza Premium",
+      "email": "mariana@studiobeleza.com.br",
+      "niche": "Salões de Beleza",
+      "volume": "30 agendamentos/semana",
+      "sent_date": "2025-12-05T14:30:00",
+      "subject": "Mariana, você perde agendamentos por isso?",
+      "status": "Enviado",
+      "opens": 0,
+      "clicks": 0,
+      "replied": false,
+      "demo_booked": false,
+      "next_action": "Aguardar resposta (target: 24h)"
+    },
+    {
+      "name": "Juliana",
+      "company": "Estética Moderna",
+      "email": "atendimento@esteticamoderna.com",
+      "niche": "Salões de Beleza",
+      "volume": "25 agendamentos/semana",
+      "sent_date": "2025-12-05T14:30:00",
+      "subject": "Juliana, como você gerencia 25+ agendamentos?",
+      "status": "Enviado",
+      "opens": 0,
+      "clicks": 0,
+      "replied": false,
+      "demo_booked": false,
+      "next_action": "Aguardar resposta (target: 24h)"
+    },
+    {
+      "name": "Paula",
+      "company": "Belle Cabelereira & Estética",
+      "email": "contato@bellecabeleireira.com",
+      "niche": "Salões de Beleza",
+      "volume": "35 agendamentos/semana",
+      "sent_date": "2025-12-05T14:30:00",
+      "subject": "Paula, a Belle está perdendo clientes?",
+      "status": "Enviado",
+      "opens": 0,
+      "clicks": 0,
+      "replied": false,
+      "demo_booked": false,
+      "next_action": "Aguardar resposta (target: 24h)"
+    },
+    {
+      "name": "Fernanda",
+      "company": "Spa & Beleza Centro",
+      "email": "reservas@spabeiezacentro.com",
+      "niche": "Salões de Beleza",
+      "volume": "20 agendamentos/semana",
+      "sent_date": "2025-12-05T14:30:00",
+      "subject": "Fernanda, seu spa recebe mensagens fora do horário?",
+      "status": "Enviado",
+      "opens": 0,
+      "clicks": 0,
+      "replied": false,
+      "demo_booked": false,
+      "next_action": "Aguardar resposta (target: 24h)"
+    },
+    {
+      "name": "Carolina",
+      "company": "Studio Nails & Cabelo",
+      "email": "contato@studionails.com.br",
+      "niche": "Salões de Beleza",
+      "volume": "40 agendamentos/semana",
+      "sent_date": "2025-12-05T14:30:00",
+      "subject": "Carolina, 40 agendamentos/semana é muito trabalho?",
+      "status": "Enviado",
+      "opens": 0,
+      "clicks": 0,
+      "replied": false,
+      "demo_booked": false,
+      "next_action": "Aguardar resposta (target: 24h)"
+    }
+  ],
+  "summary": {
+    "total_sent": 5,
+    "total_opened": 0,
+    "total_replied": 0,
+    "total_demos": 0
+  }
+}
