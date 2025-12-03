@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automação de Agendamentos com IA | Codex</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #666;
+            margin-left: 2rem;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .hero .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .hero .subtext {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 0;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #1f2937;
+        }
+
+        /* Problem Section */
+        .problems {
+            background: #f9fafb;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border-left: 4px solid #ef4444;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .problem-card h3 {
+            color: #ef4444;
+            margin-bottom: 0.5rem;
+        }
+
+        .problem-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Solution Section */
+        .solutions {
+            background: white;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .solution-card {
+            background: #f0f9ff;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 2px solid #2563eb;
+            text-align: center;
+        }
+
+        .solution-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .solution-card h3 {
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .solution-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Features */
+        .features {
+            background: #f9fafb;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .feature-icon {
+            color: #2563eb;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text h4 {
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .feature-text p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Social Proof */
+        .social-proof {
+            background: white;
+            text-align: center;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat {
+            padding: 1.5rem;
+            background: #f0f9ff;
+            border-radius: 0.75rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .testimonial-text {
+            color: #666;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .testimonial-role {
+            color: #2563eb;
+            font-size: 0.9rem;
+        }
+
+        /* Pricing */
+        .pricing {
+            background: #f9fafb;
+            text-align: center;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .pricing-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            border-color: #2563eb;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+        }
+
+        .pricing-title {
+            font-size: 1.3rem;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-price {
+            font-size: 2.5rem;
+            color: #2563eb;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .pricing-period {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .pricing-features {
+            text-align: left;
+            margin: 1.5rem 0;
+            border-top: 1px solid #e5e7eb;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.5rem 0;
+        }
+
+        .pricing-features li {
+            list-style: none;
+            margin: 0.5rem 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pricing-features li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .pricing-button {
+            background: #2563eb;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .pricing-button:hover {
+            background: #1d4ed8;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 0.75rem;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* Form */
+        .form-section {
+            background: white;
+            text-align: center;
+        }
+
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav a {
+                margin-left: 1rem;
+                font-size: 0.85rem;
+            }
+
+            section {
+                padding: 2rem 0;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Codex</div>
+            <div>
+                <a href="#features">Features</a>
+                <a href="#pricing">Preço</a>
+                <a href="#contact">Contato</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Automação de Agendamentos com IA</h1>
+            <p>De 30 emails/dia para 0 em 2 semanas</p>
+            <a href="#form" class="cta-button">Solicitar Demo Grátis</a>
+            <div class="subtext">Primeira semana é grátis, sem cartão de crédito</div>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="problems">
+        <div class="container">
+            <h2>Você responde dezenas de emails de agendamento por dia?</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <h3>⏰ Perda de Tempo</h3>
+                    <p>5+ horas/semana apenas respondendo emails de agendamento</p>
+                </div>
+                <div class="problem-card">
+                    <h3>👥 Clientes Perdidos</h3>
+                    <p>Clientes não conseguem agendar quando sua agenda não está disponível</p>
+                </div>
+                <div class="problem-card">
+                    <h3>📋 Desorganização</h3>
+                    <p>Confirmações perdidas, horários duplicados, caos de informação</p>
+                </div>
+                <div class="problem-card">
+                    <h3>💸 Receita Deixada de Lado</h3>
+                    <p>Sem relatório de ganhos, difícil saber quanto você está faturando</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions">
+        <div class="container">
+            <h2>Como Funciona</h2>
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">📱</div>
+                    <h3>Automação Inteligente</h3>
+                    <p>Sistema responde automaticamente oferecendo horários disponíveis</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">📧</div>
+                    <h3>Múltiplos Canais</h3>
+                    <p>Email, WhatsApp e SMS integrados em um só lugar</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">📊</div>
+                    <h3>Relatórios em Tempo Real</h3>
+                    <p>Veja seu faturamento, taxa de conversão e clientes confirmados</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Funcionalidades</h2>
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <div class="feature-text">
+                        <h4>Google Calendar Sync</h4>
+                        <p>Sincroniza com seu calendário automaticamente</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <div class="feature-text">
+                        <h4>Confirmação Automática</h4>
+                        <p>Envia lembrete 24h antes do agendamento</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <div class="feature-text">
+                        <h4>Relatório de Receita</h4>
+                        <p>Dashboard com seus ganhos do período</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <div class="feature-text">
+                        <h4>Integração WhatsApp</h4>
+                        <p>Recebe e responde através do WhatsApp</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <div class="feature-text">
+                        <h4>Zero Configuração</h4>
+                        <p>Conecta em 2 minutos, sem código</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✓</div>
+                    <div class="feature-text">
+                        <h4>Suporte 24/7</h4>
+                        <p>Equipe pronta para ajudar a qualquer hora</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="social-proof">
+        <div class="container">
+            <h2>Números que Falam</h2>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Agendamentos Automatizados</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Taxa de Conversão</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">5h</div>
+                    <div class="stat-label">Economia por Semana</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Planos</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-title">Teste Grátis</div>
+                    <div class="pricing-price">R$ 0</div>
+                    <div class="pricing-period">Por 14 dias</div>
+                    <ul class="pricing-features">
+                        <li>Até 50 agendamentos</li>
+                        <li>Google Calendar</li>
+                        <li>Email integrado</li>
+                        <li>Suporte básico</li>
+                    </ul>
+                    <button class="pricing-button" onclick="document.getElementById('form').scrollIntoView({behavior: 'smooth'})">Começar Agora</button>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-title">Profissional</div>
+                    <div class="pricing-price">R$ 245</div>
+                    <div class="pricing-period">Por mês</div>
+                    <ul class="pricing-features">
+                        <li>Agendamentos ilimitados</li>
+                        <li>Google Calendar</li>
+                        <li>Email + WhatsApp</li>
+                        <li>Relatórios avançados</li>
+                        <li>Suporte prioritário</li>
+                    </ul>
+                    <button class="pricing-button" onclick="document.getElementById('form').scrollIntoView({behavior: 'smooth'})">Solicitar Demo</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Pronto para automatizar seus agendamentos?</h2>
+            <p>Primeira semana é grátis. Sem cartão de crédito necessário.</p>
+            <button class="hero cta-button" onclick="document.getElementById('form').scrollIntoView({behavior: 'smooth'})">Solicitar Demo Agora</button>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section" id="form">
+        <div class="container">
+            <h2>Solicite uma Demo Personalizada</h2>
+            <form class="form-container" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Nome Completo *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="whatsapp">WhatsApp *</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="(11) 9 9999-9999" required>
+                </div>
+                <div class="form-group">
+                    <label for="profession">Qual é sua profissão? *</label>
+                    <select id="profession" name="profession" required>
+                        <option value="">Selecione...</option>
+                        <option value="salao">Salão de Beleza</option>
+                        <option value="consultorio">Consultório Médico/Odonto</option>
+                        <option value="assessoria">Assessoria Empresarial</option>
+                        <option value="aulas">Aulas/Cursos</option>
+                        <option value="outros">Outros</option>
+                    </select>
+                </div>
+                <button type="submit" class="form-submit">Agendar Demo Grátis</button>
+                <p style="margin-top: 1rem; color: #999; font-size: 0.85rem;">
+                    ✓ Sem compromisso | ✓ 14 dias grátis | ✓ Cancelar quando quiser
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Codex. Todos os direitos reservados.</p>
+        <p>
+            <a href="#" style="color: #2563eb; text-decoration: none;">Privacidade</a> | 
+            <a href="#" style="color: #2563eb; text-decoration: none;">Termos</a> | 
+            <a href="#" style="color: #2563eb; text-decoration: none;">Contato</a>
+        </p>
+    </footer>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const profession = document.getElementById('profession').value;
+            
+            // Simular envio
+            alert(`Obrigado, ${name}!\n\nDemo será agendada em ${whatsapp}\nVerifique seu email em ${email}`);
+            
+            // Resetar form
+            event.target.reset();
+            
+            // Em produção, enviar para backend
+            console.log({ name, email, whatsapp, profession });
+        }
+    </script>
+</body>
+</html>
