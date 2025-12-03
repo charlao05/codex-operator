@@ -13,6 +13,12 @@ from src.core.agent_queue import (
     create_deadline,
     create_critical_deadline,
 )
+from src.core.circuit_breaker import (
+    CircuitBreaker,
+    CircuitBreakerConfig,
+    CircuitBreakerStats,
+    CircuitState,
+)
 
 __all__ = [
     "AgentQueue",
@@ -20,4 +26,8 @@ __all__ = [
     "TaskPriority",
     "create_deadline",
     "create_critical_deadline",
+    "CircuitBreaker",
+    "CircuitBreakerConfig",
+    "CircuitBreakerStats",
+    "CircuitState",
 ]
