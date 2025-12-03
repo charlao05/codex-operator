@@ -1,23 +1,149 @@
-"""CLI simples para orquestrar planejamento e execução de automações."""
+"""CLI simples para orquestrar planejamento e execução de automações com Priority Queue.
+
+Versão v1.0: Integração de fila de prioridades (Min-Heap) para processamento eficiente
+de tarefas baseado em urgência, deadline e custo computacional.
+"""
 
 from __future__ import annotations
 
 import argparse
 import json
 import sys
+from datetime import datetime
 
 from src.agents import site_agent
 from src.agents import nf_agent
+from src.core.agent_queue import AgentQueue, TaskPriority, create_deadline
 from src.utils.logging_utils import get_logger
 from src.utils.formatting_utils import clean_markdown
 
 logger = get_logger("orchestrator")
 
+# Instância global da fila de tarefas
+_TASK_QUEUE = None
+
+
+def get_task_queue(max_size: int = 1000) -> AgentQueue:
+    """Obtém ou cria a instância global da fila de tarefas.
+    
+    Args:
+        max_size: Tamanho máximo da fila (padrão: 1000).
+    
+    Returns:
+        AgentQueue configurada.
+    """
+    global _TASK_QUEUE
+    if _TASK_QUEUE is None:
+        _TASK_QUEUE = AgentQueue(max_size=max_size)
+        logger.info("Task queue inicializada com max_size=%d", max_size)
+    return _TASK_QUEUE
+
 
 # Lembrar: respeite sempre os Termos de Uso do serviço alvo antes de rodar automações.
 
+
+def _handle_queue_stats() -> int:
+    """Exibe estatísticas da fila."""
+    queue = get_task_queue()
+    print("\n" + queue.print_stats())
+    return 0
+
+
+def _handle_queue_list() -> int:
+    """Lista todas as tarefas na fila."""
+    queue = get_task_queue()
+    tasks = queue.get_all_tasks()
+    
+    if not tasks:
+        print("Fila vazia.")
+        return 0
+    
+    print(f"\n{'ID':<12} {'PRIORITY':<10} {'AGENT':<20} {'CLIENT':<15} {'DEADLINE':<20} {'COST':<6}")
+    print("-" * 83)
+    
+    for task in tasks:
+        deadline_str = datetime.fromtimestamp(task.deadline).strftime("%Y-%m-%d %H:%M")
+        print(f"{task.task_id:<12} {task.priority:<10} {task.agent_name:<20} {task.client_id:<15} {deadline_str:<20} {task.cost:<6}")
+    
+    print(f"\nTotal: {len(tasks)} tarefas")
+    return 0
+
+
+def _handle_queue_clear() -> int:
+    """Limpa a fila."""
+    queue = get_task_queue()
+    size_before = queue.size()
+    queue.clear()
+    logger.info("Fila limpa. Tarefas removidas: %d", size_before)
+    print(f"✓ Fila limpa ({size_before} tarefas removidas)")
+    return 0
+
+
+def _handle_queue_process(count: int) -> int:
+    """Processa N tarefas da fila sequencialmente."""
+    queue = get_task_queue()
+    
+    if queue.is_empty():
+        print("Fila vazia. Nada a processar.")
+        return 0
+    
+    processed = 0
+    for i in range(count):
+        task = queue.pop()
+        if task is None:
+            break
+        
+        processed += 1
+        overdue_marker = " [OVERDUE]" if task.is_overdue() else ""
+        print(f"[{i+1}] Processando: {task.agent_name} (client: {task.client_id}, priority: {task.priority}){overdue_marker}")
+        logger.info("Task processed: task_id=%s, agent=%s, client=%s", task.task_id, task.agent_name, task.client_id)
+    
+    print(f"\n✓ {processed} tarefa(s) processada(s)")
+    return 0
+
+
+def _handle_queue_push(args) -> int:
+    """Adiciona tarefa manualmente à fila."""
+    queue = get_task_queue()
+    
+    try:
+        deadline = create_deadline(days_ahead=args.days)
+        payload = {}
+        if args.payload:
+            payload = json.loads(args.payload)
+        
+        task_id = queue.push(
+            priority=args.priority,
+            deadline=deadline,
+            cost=args.cost,
+            agent_name=args.agent,
+            client_id=args.client,
+            payload=payload,
+        )
+        
+        if task_id is None:
+            print("✗ Erro: Fila cheia. Aumente max_size ou processe tarefas.")
+            return 1
+        
+        print(f"✓ Tarefa adicionada: {task_id}")
+        print(f"  Agent: {args.agent}")
+        print(f"  Client: {args.client}")
+        print(f"  Priority: {args.priority}")
+        print(f"  Deadline: {deadline.strftime('%Y-%m-%d %H:%M')}")
+        print(f"  Cost: {args.cost}")
+        
+        return 0
+    except json.JSONDecodeError:
+        logger.exception("Erro ao decodificar payload JSON")
+        print("✗ Erro: Payload JSON inválido")
+        return 1
+    except ValueError as e:
+        logger.exception("Erro ao criar tarefa: %s", e)
+        print(f"✗ Erro: {e}")
+        return 1
+
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Orquestrador de automações")
+    parser = argparse.ArgumentParser(description="Orquestrador de automações com Priority Queue")
     subparsers = parser.add_subparsers(dest="comando", required=True)
 
     executar_parser = subparsers.add_parser("executar", help="Planeja e executa um objetivo")
@@ -35,11 +161,47 @@ def _parse_args() -> argparse.Namespace:
     nf_parser.add_argument("--send-gmail", action="store_true", help="(Opcional) Enviar notificação via Gmail API ao cliente")
     nf_parser.add_argument("--save-output", help="(Opcional) Salvar resultado em JSON")
 
+    # Novo: queue management
+    queue_parser = subparsers.add_parser("queue", help="Gerenciar fila de tarefas")
+    queue_subparsers = queue_parser.add_subparsers(dest="queue_cmd", required=True)
+
+    queue_subparsers.add_parser("stats", help="Mostrar estatísticas da fila")
+    queue_subparsers.add_parser("list", help="Listar todas as tarefas na fila")
+    
+    queue_subparsers.add_parser("clear", help="Limpar todas as tarefas da fila")
+    
+    process_parser = queue_subparsers.add_parser("process", help="Processar N tarefas da fila")
+    process_parser.add_argument("--count", type=int, default=1, help="Número de tarefas a processar (padrão: 1)")
+    
+    push_parser = queue_subparsers.add_parser("push", help="Adicionar tarefa manualmente à fila")
+    push_parser.add_argument("--agent", required=True, help="Nome do agente (ex: nf_agent)")
+    push_parser.add_argument("--client", required=True, help="ID do cliente")
+    push_parser.add_argument("--priority", type=int, choices=[1,2,3,4,5], default=3, help="Prioridade: 1=CRITICAL, 5=DEFERRED (padrão: 3=MEDIUM)")
+    push_parser.add_argument("--days", type=int, default=1, help="Dias até deadline (padrão: 1)")
+    push_parser.add_argument("--cost", type=int, default=1, help="Custo computacional (padrão: 1)")
+    push_parser.add_argument("--payload", help="Payload JSON (opcional)")
+
     return parser.parse_args()
 
 
 def main() -> int:
     args = _parse_args()
+
+    # Novo: Comandos de gerenciamento de fila
+    if args.comando == "queue":
+        if args.queue_cmd == "stats":
+            return _handle_queue_stats()
+        elif args.queue_cmd == "list":
+            return _handle_queue_list()
+        elif args.queue_cmd == "clear":
+            return _handle_queue_clear()
+        elif args.queue_cmd == "process":
+            return _handle_queue_process(args.count)
+        elif args.queue_cmd == "push":
+            return _handle_queue_push(args)
+        else:
+            logger.error("Comando de fila desconhecido: %s", args.queue_cmd)
+            return 1
 
     if args.comando == "executar":
         site = args.site
