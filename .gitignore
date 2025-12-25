@@ -1,3 +1,17 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Environment
+.env
+
+# Credentials (do not commit secrets)
+credentials.json
+config/sa-key.json
+
+# Editor
+.vscode/
 # Ambientes virtuais
 .venv/
 venv/

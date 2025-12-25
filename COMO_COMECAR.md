@@ -13,6 +13,30 @@ cd C:\Users\Charles\Desktop\codex-operator
 
 ---
 
+## Credenciais e templates (importante)
+
+Este repositório agora fornece arquivos de template para evitar comitar segredos.
+
+1. Copie o template para o arquivo de credenciais usado localmente:
+
+```powershell
+copy credentials.template.json credentials.json
+copy config\sa-key.template.json config\sa-key.json
+``` 
+
+2. Preencha `credentials.json` e `config/sa-key.json` com suas chaves locais **apenas** no seu ambiente (NUNCA commit).
+
+3. Para rodar verificadores locais antes de commitar, instale `pre-commit` e execute:
+
+```powershell
+pip install pre-commit
+pre-commit install
+pre-commit run --all-files
+```
+
+Isso vai checar formatação e procurar possíveis segredos.
+
+
 ## Passo 2: Rodar a Demo Instagram (3 min)
 
 ```powershell

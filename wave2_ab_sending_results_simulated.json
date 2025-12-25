@@ -1,0 +1,41 @@
+{
+  "timestamp": "2025-12-05 11:33:37",
+  "mode": "dry-run",
+  "results": [
+    {
+      "index": 1,
+      "email": "contato@studiobeleza.com.br",
+      "status": "simulado",
+      "variant": "A",
+      "timestamp": "2025-12-05 11:33:37"
+    },
+    {
+      "index": 2,
+      "email": "atendimento@esteticamoderna.com",
+      "status": "simulado",
+      "variant": "B",
+      "timestamp": "2025-12-05 11:33:37"
+    },
+    {
+      "index": 3,
+      "email": "contato@bellecabeleireira.com",
+      "status": "simulado",
+      "variant": "A",
+      "timestamp": "2025-12-05 11:33:37"
+    },
+    {
+      "index": 4,
+      "email": "reservas@spabeiezacentro.com",
+      "status": "simulado",
+      "variant": "B",
+      "timestamp": "2025-12-05 11:33:37"
+    },
+    {
+      "index": 5,
+      "email": "contato@studionails.com.br",
+      "status": "simulado",
+      "variant": "A",
+      "timestamp": "2025-12-05 11:33:37"
+    }
+  ]
+}

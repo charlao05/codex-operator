@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-12-04 23:52:46",
+  "total_sent": 5,
+  "total_failed": 0,
+  "results": [
+    {
+      "index": 1,
+      "name": "Mariana",
+      "company": "Studio Beleza Premium",
+      "email": "contato@studiobeleza.com.br",
+      "status": "enviado",
+      "timestamp": "2025-12-04 23:52:46"
+    },
+    {
+      "index": 2,
+      "name": "Juliana",
+      "company": "Estética Moderna",
+      "email": "atendimento@esteticamoderna.com",
+      "status": "enviado",
+      "timestamp": "2025-12-04 23:52:46"
+    },
+    {
+      "index": 3,
+      "name": "Paula",
+      "company": "Belle Cabelereira & Estética",
+      "email": "contato@bellecabeleireira.com",
+      "status": "enviado",
+      "timestamp": "2025-12-04 23:52:46"
+    },
+    {
+      "index": 4,
+      "name": "Fernanda",
+      "company": "Spa & Beleza Centro",
+      "email": "reservas@spabeiezacentro.com",
+      "status": "enviado",
+      "timestamp": "2025-12-04 23:52:46"
+    },
+    {
+      "index": 5,
+      "name": "Carolina",
+      "company": "Studio Nails & Cabelo",
+      "email": "contato@studionails.com.br",
+      "status": "enviado",
+      "timestamp": "2025-12-04 23:52:46"
+    }
+  ]
+}
