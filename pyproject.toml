@@ -12,4 +12,6 @@ authors = [ { name = "Charles Rodrigues" } ]
 
 [tool.setuptools]
 package-dir = {"" = "src"}
-packages = "find:"
+
+[tool.setuptools.packages.find]
+where = ["src"]
