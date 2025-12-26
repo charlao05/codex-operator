@@ -186,3 +186,24 @@ python -m src.cli demo --demo instagram
 ```
 
 Faz isso agora mesmo!
+
+---
+
+## Docker e Empacotamento (opcional)
+
+Se quiser testar uma imagem containerizada localmente:
+
+```powershell
+docker build -t codex-operator:local .
+docker run --rm -it codex-operator:local
+```
+
+Para gerar artefatos Python (wheel):
+
+```powershell
+python -m pip install --upgrade pip build
+pip install -r requirements.txt
+python -m build
+```
+
+Os artefatos ficarão em `dist/`.

@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, ".")
 
-from src.core.agent_queue import AgentQueue, TaskPriority, create_deadline
+from src.core.agent_queue import AgentQueue, TaskPriority, create_deadline  # noqa: E402
 
 # Teste 1: Criar fila e adicionar tarefas
 print("=== TESTE 1: Criar Fila e Adicionar Tarefas ===")

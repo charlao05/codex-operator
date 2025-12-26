@@ -10,10 +10,12 @@ Teste completo do CREATE_BOOKING_SAGA com:
 
 import sys
 
-sys.path.insert(0, "/Users/Charles/Desktop/codex-operator")
+# flake8: noqa
 
-from src.core.saga_orchestrator import SagaOrchestrator, SagaStep
-from src.sagas.create_booking import CREATE_BOOKING_SAGA
+sys.path.insert(0, ".")
+
+from src.core.saga_orchestrator import SagaOrchestrator, SagaStep  # noqa: E402
+from src.sagas.create_booking import CREATE_BOOKING_SAGA  # noqa: E402
 import json
 from datetime import datetime
 

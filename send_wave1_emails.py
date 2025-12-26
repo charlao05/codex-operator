@@ -5,6 +5,8 @@ Gmail SMTP Email Sender - Wave 1
 Envia 5 emails personalizados via SMTP Gmail
 """
 
+# flake8: noqa
+
 import smtplib
 import json
 import argparse
