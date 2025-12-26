@@ -122,11 +122,11 @@ touch src/integrations/whatsapp_api.py
 def send_whatsapp_message(phone: str, message: str) -> bool:
     """
     Envia mensagem via WhatsApp Business API
-    
+
     Args:
         phone: Número com código país (ex: +55 11 98765-4321)
         message: Texto da mensagem
-    
+
     Returns:
         bool: Success
     """
@@ -186,7 +186,7 @@ logger = get_logger(__name__)
 def analisar_mensagem_cliente(texto: str) -> dict:
     """
     Analisa mensagem de cliente para detectar tipo de pedido.
-    
+
     Retorna:
         {
             "type": "agendamento" | "informacao" | "outro",
@@ -287,6 +287,6 @@ Antes de passar para Agente 2, verificar:
 
 ---
 
-**Status:** ✅ Pronto para Próximo Passo  
-**Data:** 17 de novembro de 2025  
+**Status:** ✅ Pronto para Próximo Passo
+**Data:** 17 de novembro de 2025
 **Versão:** Agente Prazos & DAS v1.0

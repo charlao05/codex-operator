@@ -1,6 +1,6 @@
 # Email Outreach & Demo Strategy
 
-**Objetivo:** 20 contatos → 5 demos agendadas → 5 clientes beta grátis → 2-3 conversões para pago  
+**Objetivo:** 20 contatos → 5 demos agendadas → 5 clientes beta grátis → 2-3 conversões para pago
 **Período:** Semana 2 (Dec 9-13, 2025)
 
 ---
@@ -105,7 +105,7 @@ Charles
 5. Salão das Flores - Santos
 
 **Copy customizado:**
-"Vi que seu salão tem vários profissionais. Imagino que gerenciar 
+"Vi que seu salão tem vários profissionais. Imagino que gerenciar
 50+ agendamentos por dia seja complicado, não é?"
 
 ### Nicho B: Consultórios Médicos/Odonto

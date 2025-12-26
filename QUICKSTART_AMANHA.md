@@ -1,7 +1,7 @@
 # 🚀 QUICKSTART - EXECUÇÃO AMANHÃ (5 de Dezembro)
 
-**Data:** 5 de Dezembro, 2025  
-**Status:** ✅ TUDO PRONTO - SEGUE CHECKLIST ABAIXO  
+**Data:** 5 de Dezembro, 2025
+**Status:** ✅ TUDO PRONTO - SEGUE CHECKLIST ABAIXO
 
 ---
 
@@ -115,7 +115,7 @@ git push -u origin main
 python email_monitoring.py
 ```
 
-**Verificar:** 
+**Verificar:**
 - Emails foram entregues? (Gmail inbox)
 - Alguém abriu? (próximas 24h esperado)
 - Alguém respondeu? (próximas 48h esperado)
@@ -167,32 +167,32 @@ python email_monitoring.py
 ## 🆘 TROUBLESHOOTING
 
 **"Erro no deploy em Vercel"**
-→ Verificar que `landing/index.html` existe  
-→ Tentar refresh na página  
+→ Verificar que `landing/index.html` existe
+→ Tentar refresh na página
 → Deletar deploy e refazer
 
 **"Emails não foram entregues"**
-→ Verificar endereços estão corretos  
+→ Verificar endereços estão corretos
 → Verificar não foram pra spam
 
 **"Form não funciona"**
-→ Testar em incognito  
-→ Verificar que Formspree está configurado  
+→ Testar em incognito
+→ Verificar que Formspree está configurado
 → Usar Google Forms se não funcionar
 
 **"Nenhuma resposta após 24h"**
-→ Normal - esperar até 48h  
+→ Normal - esperar até 48h
 → Se nenhuma após 48h → preparar Wave 2
 
 ---
 
 ## 📱 DICAS IMPORTANTES
 
-✅ **Ter celular perto:** Para responder rápido se alguém ligar/chamar  
-✅ **Guardar URLs:** Landing URL, emails templates  
-✅ **Ter calendário pronto:** Para agendar demos quando pedir  
-✅ **Responder RÁPIDO:** <2h é crítico  
-✅ **Personalizar:** Use nome do cliente sempre  
+✅ **Ter celular perto:** Para responder rápido se alguém ligar/chamar
+✅ **Guardar URLs:** Landing URL, emails templates
+✅ **Ter calendário pronto:** Para agendar demos quando pedir
+✅ **Responder RÁPIDO:** <2h é crítico
+✅ **Personalizar:** Use nome do cliente sempre
 
 ---
 
@@ -244,11 +244,11 @@ Let's go! 🚀
 
 ## 📞 CONTATOS ÚTEIS
 
-**Calendly (se criar):** https://calendly.com  
-**Gmail:** https://mail.google.com  
-**Google Sheets:** https://sheets.google.com  
-**Vercel:** https://vercel.com  
-**GitHub:** https://github.com  
+**Calendly (se criar):** https://calendly.com
+**Gmail:** https://mail.google.com
+**Google Sheets:** https://sheets.google.com
+**Vercel:** https://vercel.com
+**GitHub:** https://github.com
 **Formspree:** https://formspree.io
 
 ---

@@ -78,7 +78,7 @@ RESPOSTAS PARA OBJEÇÕES
 """
 
 # Salvar script em arquivo legível
-with open('docs/DEMO_SCRIPT.txt', 'w', encoding='utf-8') as f:
+with open("docs/DEMO_SCRIPT.txt", "w", encoding="utf-8") as f:
     f.write(DEMO_SCRIPT)
 
-print('Demo script salvo em: docs/DEMO_SCRIPT.txt')
+print("Demo script salvo em: docs/DEMO_SCRIPT.txt")

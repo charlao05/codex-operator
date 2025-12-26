@@ -35,7 +35,7 @@ Esta proposta conecta a pesquisa ao produto, mapeando como o `codex-operator` po
   - Agente monitora mensagens e responde automaticamente com respostas pré-configuradas
   - Integração nativa com WhatsApp Business API
   - Escalação inteligente: se resposta automática não encaixa, notifica MEI
-  
+
 - **Resposta proativa** (assistente IA)
   - "Você tem 5 mensagens não respondidas há 2h. Quer enviar uma resposta automática?"
   - Agenda follow-up automático para cliente que não recebeu resposta
@@ -183,7 +183,7 @@ Conforme mapeado na pesquisa e baseado no que o Codex pode entregar:
 - [ ] **Integração WhatsApp Business API**
   - Módulo: `src/workflows/whatsapp_connector.py`
   - Recebe/envia mensagens, cria contexto de conversa
-  
+
 - [ ] **Agente financeiro simples**
   - Módulo: `src/workflows/financa_automatica.py`
   - Integração com Open Finance (bancos digitais)
@@ -369,7 +369,7 @@ src/
 
 ## Conclusão
 
-O `codex-operator` é a base técnica perfeita para atacar uma oportunidade de mercado **genuína e de grande tamanho** (milhões de MEIs no Brasil). 
+O `codex-operator` é a base técnica perfeita para atacar uma oportunidade de mercado **genuína e de grande tamanho** (milhões de MEIs no Brasil).
 
 A pesquisa fornece o **mapa de dores**, este documento fornece o **plano de produto**, e o código fornece a **infraestrutura**. O que falta agora é:
 
@@ -383,6 +383,6 @@ Se executado bem, o Codex Operator pode ser a solução que **milhares de MEIs e
 
 ---
 
-**Documento criado:** 17 de novembro de 2025  
-**Versão:** 1.0  
+**Documento criado:** 17 de novembro de 2025
+**Versão:** 1.0
 **Próximo review:** Após validação com primeiros 10 MEIs

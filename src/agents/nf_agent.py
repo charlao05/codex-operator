@@ -58,7 +58,9 @@ def prepare_invoice_steps(sales_record: Dict[str, Any]) -> Dict[str, Any]:
     cliente = _get_field(sales_record, "cliente_nome", "client_name", default="Cliente")
     cpf_cnpj = _get_field(sales_record, "cliente_cnpj_cpf", "client_id", default=None)
     amount = _get_field(sales_record, "valor_total", "amount", default=0.0)
-    descricao = _get_field(sales_record, "descricao_servicos", "description", default=None)
+    descricao = _get_field(
+        sales_record, "descricao_servicos", "description", default=None
+    )
     data_venda = _get_field(sales_record, "data_venda", "date", default=None)
 
     required = {
@@ -111,7 +113,9 @@ def prepare_invoice_steps(sales_record: Dict[str, Any]) -> Dict[str, Any]:
         explicacao = gerar_texto_simples(prompt)
     except Exception as e:
         logger.warning("LLM falhou ao gerar explicação: %s", e)
-        explicacao = "Siga os passos listados para emitir a nota fiscal no portal da prefeitura."
+        explicacao = (
+            "Siga os passos listados para emitir a nota fiscal no portal da prefeitura."
+        )
 
     result: Dict[str, Any] = {"steps": steps, "explicacao": explicacao}
     if missing:

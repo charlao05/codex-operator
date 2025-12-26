@@ -69,7 +69,6 @@ def executar_lead_express() -> dict:
         }
 
 
-
 if __name__ == "__main__":  # pragma: no cover
     resultado = executar_lead_express()
     print(f"\nResultado: {resultado}")

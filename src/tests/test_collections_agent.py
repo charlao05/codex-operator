@@ -1,6 +1,10 @@
 import pytest
 from pathlib import Path
-from src.agents.collections_agent import load_collections, find_overdue, generate_collection_message
+from src.agents.collections_agent import (
+    load_collections,
+    find_overdue,
+    generate_collection_message,
+)
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 DATA_DIR = BASE_DIR / "data"

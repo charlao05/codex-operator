@@ -29,7 +29,7 @@ Agente de Prazos & DAS
     ↓
 Executável agora mesmo:
   $ python -m src.workflows.prazos_criticos
-  
+
 Output:
   ✅ Lista de prazos vencendo
   ✅ Mensagem humanizada
@@ -178,5 +178,5 @@ Qualquer opção = máximo 1 hora de trabalho.
 
 ---
 
-*Atualizado: 17 de novembro de 2025*  
+*Atualizado: 17 de novembro de 2025*
 *Versão: Codex Operator 0.3-agentes (Agente 1 de 5)*

@@ -137,6 +137,27 @@ codex-operator/
 
 ---
 
+## Packaging & Deployment
+
+Breve resumo das entregas para comercializar o projeto:
+
+- CI: GitHub Actions que roda `pre-commit`, `pytest`, constrói wheel e gera imagem Docker (arquivo `.github/workflows/ci.yml`).
+- Empacotamento: `pyproject.toml` presente para gerar wheel via `python -m build`.
+- Container: `Dockerfile` mínimo para testes e deploy. Customize `CMD`/entrypoint para sua aplicação.
+- Segurança: `credentials.template.json` e `config/sa-key.template.json` mantêm placeholders; `detect-secrets` baseline está gerado.
+
+Para criar artefatos localmente:
+
+```powershell
+python -m pip install --upgrade pip build
+pip install -r requirements.txt
+python -m build
+docker build -t codex-operator:local .
+```
+
+Para publicar: criar tag semântico (ex: `v1.0.0`), criar release no GitHub e publicar wheel/Docker image conforme suas credenciais de registro.
+
+
 ## Ações Suportadas
 
 O agente consegue executar estes tipos de ação automaticamente:
@@ -288,6 +309,6 @@ Pronto para começar a vender automações de IA. 🚀
 
 ---
 
-**Data:** 17 de novembro de 2025  
-**Desenvolvedor:** Charles (com Codex Copilot)  
+**Data:** 17 de novembro de 2025
+**Desenvolvedor:** Charles (com Codex Copilot)
 **Status:** Ativo e em evolução

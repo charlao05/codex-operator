@@ -22,7 +22,7 @@ Este repositório agora fornece arquivos de template para evitar comitar segredo
 ```powershell
 copy credentials.template.json credentials.json
 copy config\sa-key.template.json config\sa-key.json
-``` 
+```
 
 2. Preencha `credentials.json` e `config/sa-key.json` com suas chaves locais **apenas** no seu ambiente (NUNCA commit).
 
@@ -159,19 +159,19 @@ python -m src.cli agent --site instagram --objetivo "seu objetivo"
 
 ## FAQ Rápido
 
-**P: Preciso de chave OpenAI para testar?**  
+**P: Preciso de chave OpenAI para testar?**
 R: Sim, para `demo --demo qualificacao`. Para `demo --demo instagram` não precisa.
 
-**P: Quanto tempo leva pra criar um novo workflow?**  
+**P: Quanto tempo leva pra criar um novo workflow?**
 R: 30 minutos (cópia + adaptação).
 
-**P: Quanto posso cobrar pra implementar uma automação?**  
+**P: Quanto posso cobrar pra implementar uma automação?**
 R: Setup R$ 1.200-2.500 + Recorrência R$ 500-1.000/mês.
 
-**P: Qual nicho é mais fácil começar?**  
+**P: Qual nicho é mais fácil começar?**
 R: Imobiliárias ou estética (têm muitos leads, querem qualificar rápido).
 
-**P: Quantos clientes preciso pra ganhar bem com isso?**  
+**P: Quantos clientes preciso pra ganhar bem com isso?**
 R: 5-10 clientes em recorrência = R$ 2.5k-10k/mês.
 
 ---
@@ -186,3 +186,24 @@ python -m src.cli demo --demo instagram
 ```
 
 Faz isso agora mesmo!
+
+---
+
+## Docker e Empacotamento (opcional)
+
+Se quiser testar uma imagem containerizada localmente:
+
+```powershell
+docker build -t codex-operator:local .
+docker run --rm -it codex-operator:local
+```
+
+Para gerar artefatos Python (wheel):
+
+```powershell
+python -m pip install --upgrade pip build
+pip install -r requirements.txt
+python -m build
+```
+
+Os artefatos ficarão em `dist/`.

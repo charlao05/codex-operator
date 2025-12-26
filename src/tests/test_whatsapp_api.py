@@ -1,6 +1,5 @@
 """Testes unitários para a integração WhatsApp API."""
 
-import json
 import pytest
 from unittest.mock import MagicMock, patch
 from src.integrations.whatsapp_api import WhatsAppAPI, send_nf_notification
@@ -8,10 +7,13 @@ from src.integrations.whatsapp_api import WhatsAppAPI, send_nf_notification
 
 def test_whatsapp_api_initialization():
     """Testar inicialização do cliente WhatsApp com credenciais corretas."""
-    with patch.dict("os.environ", {
-        "WHATSAPP_TOKEN": "test_token",
-        "WHATSAPP_PHONE_ID": "123456",
-    }):
+    with patch.dict(
+        "os.environ",
+        {
+            "WHATSAPP_TOKEN": "test_token",
+            "WHATSAPP_PHONE_ID": "123456",
+        },
+    ):
         api = WhatsAppAPI()
         assert api.access_token == "test_token"
         assert api.phone_number_id == "123456"
@@ -27,10 +29,13 @@ def test_whatsapp_api_missing_credentials():
 
 def test_send_text_message_success():
     """Testar envio de mensagem de texto com sucesso."""
-    with patch.dict("os.environ", {
-        "WHATSAPP_TOKEN": "test_token",
-        "WHATSAPP_PHONE_ID": "123456",
-    }):
+    with patch.dict(
+        "os.environ",
+        {
+            "WHATSAPP_TOKEN": "test_token",
+            "WHATSAPP_PHONE_ID": "123456",
+        },
+    ):
         with patch("httpx.Client.post") as mock_post:
             mock_response = MagicMock()
             mock_response.json.return_value = {
@@ -54,10 +59,13 @@ def test_send_text_message_failure():
     """Testar tratamento de erro ao enviar mensagem."""
     import httpx
 
-    with patch.dict("os.environ", {
-        "WHATSAPP_TOKEN": "test_token",
-        "WHATSAPP_PHONE_ID": "123456",
-    }):
+    with patch.dict(
+        "os.environ",
+        {
+            "WHATSAPP_TOKEN": "test_token",
+            "WHATSAPP_PHONE_ID": "123456",
+        },
+    ):
         with patch("httpx.Client.post") as mock_post:
             mock_post.side_effect = httpx.HTTPError("Connection failed")
 
@@ -70,10 +78,13 @@ def test_send_text_message_failure():
 
 def test_send_template_message():
     """Testar envio de mensagem com template."""
-    with patch.dict("os.environ", {
-        "WHATSAPP_TOKEN": "test_token",
-        "WHATSAPP_PHONE_ID": "123456",
-    }):
+    with patch.dict(
+        "os.environ",
+        {
+            "WHATSAPP_TOKEN": "test_token",
+            "WHATSAPP_PHONE_ID": "123456",
+        },
+    ):
         with patch("httpx.Client.post") as mock_post:
             mock_response = MagicMock()
             mock_response.json.return_value = {"messages": [{"id": "msg_456"}]}
@@ -90,10 +101,13 @@ def test_send_template_message():
 
 def test_send_nf_notification():
     """Testar função de notificação de nota fiscal."""
-    with patch.dict("os.environ", {
-        "WHATSAPP_TOKEN": "test_token",
-        "WHATSAPP_PHONE_ID": "123456",
-    }):
+    with patch.dict(
+        "os.environ",
+        {
+            "WHATSAPP_TOKEN": "test_token",
+            "WHATSAPP_PHONE_ID": "123456",
+        },
+    ):
         with patch("httpx.Client.post") as mock_post:
             mock_response = MagicMock()
             mock_response.json.return_value = {"messages": [{"id": "msg_nf"}]}

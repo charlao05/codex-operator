@@ -10,12 +10,10 @@ Funcionalidades:
 """
 
 import json
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
-import logging
 
-from src.utils.llm_client import gerar_plano_acao
 from src.utils.logging_utils import get_logger
 
 logger = get_logger(__name__)
@@ -116,12 +114,13 @@ def check_deadlines(
 
             # Se está vencida ou está em um dos períodos de alerta
             if days_remaining <= 0:
-                # Já vencida
-                severity = "VENCIDA"
+                # Já vencida → prioridade crítica
+                priority = "critical"
             elif days_remaining in alert_days or any(
                 d <= days_remaining < (d + 1) for d in alert_days if days_remaining < d
             ):
-                severity = "ALERTA"
+                # Período de alerta → marca como high por padrão
+                priority = obligation.get("priority", "high")
             else:
                 continue  # Não gera alerta
 
@@ -132,7 +131,7 @@ def check_deadlines(
                 due_date=obligation["due_date"],
                 days_remaining=days_remaining,
                 estimated_value=obligation.get("estimated_value"),
-                priority=obligation.get("priority", "normal"),
+                priority=priority,
                 url_payment=obligation.get("url_payment"),
                 notes=obligation.get("notes"),
             )
@@ -144,9 +143,7 @@ def check_deadlines(
 
     # Ordena por urgência: crítico > high > normal, depois por dias restantes
     priority_order = {"critical": 0, "high": 1, "normal": 2}
-    alerts.sort(
-        key=lambda a: (priority_order.get(a.priority, 3), a.days_remaining)
-    )
+    alerts.sort(key=lambda a: (priority_order.get(a.priority, 3), a.days_remaining))
 
     logger.info(f"Alertas gerados: {len(alerts)} obrigações próximas de vencer")
     return alerts
@@ -173,7 +170,9 @@ def generate_reminder_message(alerts: list[DeadlineAlert], mei_name: str = None)
     return generate_fallback_message(alerts)
 
 
-def generate_reminder_message_with_llm(alerts: list[DeadlineAlert], mei_name: str = None) -> str:
+def generate_reminder_message_with_llm(
+    alerts: list[DeadlineAlert], mei_name: str = None
+) -> str:
     """
     Gera mensagem com LLM (mais custoso, mas mais personalizado).
 
@@ -215,6 +214,7 @@ Responda APENAS com a mensagem, sem explicações adicionais.
     try:
         logger.info("Gerando mensagem com LLM...")
         from src.utils.llm_client import gerar_plano_acao
+
         # Chama o cliente LLM
         message = gerar_plano_acao(
             site="mei_agenda",  # Site genérico
@@ -298,7 +298,7 @@ def suggest_action(alert: DeadlineAlert) -> dict:
             "url": alert.url_payment,
             "steps": [
                 "Entre no app/site do provedor",
-                f"Procure por boleto ou link de pagamento",
+                "Procure por boleto ou link de pagamento",
                 "Pague até {alert.due_date}",
             ],
         },

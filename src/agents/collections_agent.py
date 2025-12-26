@@ -34,11 +34,11 @@ def find_overdue(path: str | Path) -> List[Dict[str, Any]]:
 def generate_collection_message(invoice: Dict[str, Any]) -> str:
     client = invoice.get("client")
     amount = invoice.get("amount")
-    days_over = (datetime.now().date() - datetime.fromisoformat(invoice.get("due_date")).date()).days
+    days_over = (
+        datetime.now().date() - datetime.fromisoformat(invoice.get("due_date")).date()
+    ).days
 
-    prompt = (
-        f"Gere uma mensagem curta e educada para cobrar o cliente {client} sobre uma fatura de R$ {amount:.2f} vencida há {days_over} dias."
-    )
+    prompt = f"Gere uma mensagem curta e educada para cobrar o cliente {client} sobre uma fatura de R$ {amount:.2f} vencida há {days_over} dias."
 
     try:
         texto = gerar_texto_simples(prompt)

@@ -27,6 +27,8 @@ class FakeService:
 def test_send_message_injected_service():
     gmail = GmailAPI()
     svc = FakeService()
-    res = gmail.send_message(["a@b.c"], "Assunto", "Corpo", sender="noreply@test.local", service=svc)
+    res = gmail.send_message(
+        ["a@b.c"], "Assunto", "Corpo", sender="noreply@test.local", service=svc
+    )
     assert res["status"] == "sent"
     assert res["id"] == "gmail123"

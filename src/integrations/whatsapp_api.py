@@ -35,10 +35,16 @@ class WhatsAppAPI:
         self.base_url = f"https://graph.facebook.com/{api_version}"
 
         if not self.phone_number_id or not self.access_token:
-            logger.error("WhatsApp credentials not found. Set WHATSAPP_PHONE_ID and WHATSAPP_TOKEN.")
-            raise ValueError("WhatsApp credentials missing in environment or parameters.")
+            logger.error(
+                "WhatsApp credentials not found. Set WHATSAPP_PHONE_ID and WHATSAPP_TOKEN."
+            )
+            raise ValueError(
+                "WhatsApp credentials missing in environment or parameters."
+            )
 
-    def send_text_message(self, recipient_number: str, message_text: str) -> Dict[str, Any]:
+    def send_text_message(
+        self, recipient_number: str, message_text: str
+    ) -> Dict[str, Any]:
         """
         Enviar uma mensagem de texto simples.
 
@@ -63,7 +69,11 @@ class WhatsAppAPI:
                 response = client.post(url, json=payload, headers=headers, timeout=30.0)
                 response.raise_for_status()
                 data = response.json()
-                logger.info("Mensagem enviada para %s | message_id=%s", recipient_number, data.get("messages", [{}])[0].get("id"))
+                logger.info(
+                    "Mensagem enviada para %s | message_id=%s",
+                    recipient_number,
+                    data.get("messages", [{}])[0].get("id"),
+                )
                 return data
         except httpx.HTTPError as e:
             logger.exception("Erro ao enviar mensagem WhatsApp: %s", e)
@@ -103,7 +113,11 @@ class WhatsAppAPI:
                 response = client.post(url, json=payload, headers=headers, timeout=30.0)
                 response.raise_for_status()
                 data = response.json()
-                logger.info("Template enviado para %s | template=%s", recipient_number, template_name)
+                logger.info(
+                    "Template enviado para %s | template=%s",
+                    recipient_number,
+                    template_name,
+                )
                 return data
         except httpx.HTTPError as e:
             logger.exception("Erro ao enviar template WhatsApp: %s", e)
@@ -143,7 +157,11 @@ class WhatsAppAPI:
                 response = client.post(url, json=payload, headers=headers, timeout=30.0)
                 response.raise_for_status()
                 data = response.json()
-                logger.info("Documento enviado para %s | arquivo=%s", recipient_number, document_filename)
+                logger.info(
+                    "Documento enviado para %s | arquivo=%s",
+                    recipient_number,
+                    document_filename,
+                )
                 return data
         except httpx.HTTPError as e:
             logger.exception("Erro ao enviar documento WhatsApp: %s", e)
@@ -184,7 +202,9 @@ if __name__ == "__main__":
     test_number = os.getenv("WHATSAPP_TEST_NUMBER", "+1 555 632 2287")
     try:
         api = WhatsAppAPI()
-        result = api.send_text_message(test_number, "Teste de mensagem do CODEX-OPERATOR ✅")
+        result = api.send_text_message(
+            test_number, "Teste de mensagem do CODEX-OPERATOR ✅"
+        )
         print(json.dumps(result, indent=2, ensure_ascii=False))
     except ValueError as e:
         print(f"Erro: {e}")

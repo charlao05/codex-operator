@@ -2,11 +2,11 @@
 <#
 .SYNOPSIS
     Deploy Landing Page para Vercel - Automatic Deployment Script
-    
+
 .DESCRIPTION
     Este script faz deploy da landing page para Vercel em 1 comando
     Opções: Vercel CLI (rápido) ou Upload via Web
-    
+
 .EXAMPLE
     .\deploy-landing.ps1
 #>
@@ -74,22 +74,22 @@ Passo a Passo:
   1. Criar repo GitHub: https://github.com/new
      - Nome: codex-operator
      - Private/Public conforme preferir
-  
+
   2. Fazer push local:
      git remote add origin https://github.com/SEU_USER/codex-operator.git
      git branch -M main
      git push -u origin main
-  
+
   3. Conectar Vercel:
      - Ir em https://vercel.com
      - Click 'Import Project'
      - Selecionar repo GitHub
      - Configurar (mesmas settings acima)
      - Click 'Deploy'
-  
+
   4. Pronto! Cada push = deploy automático
 
-✅ Resultado: 
+✅ Resultado:
   - Landing URL: https://codex-operator.vercel.app
   - Deploy automático em cada git push
 " -ForegroundColor Green
@@ -184,7 +184,7 @@ Write-Host "
 5. Testar form com 1 submissão
 6. Copiar URL final
 
-Charles, qual método você quer usar? 
+Charles, qual método você quer usar?
   A) Vercel CLI (rápido, se tem Node)
   B) Upload Web (simples, manual)
   C) GitHub + Vercel (melhor, recomendado)

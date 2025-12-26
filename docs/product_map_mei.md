@@ -56,7 +56,7 @@ Conecta a pesquisa "Automatização de Rotinas para MEI" com a implementação c
   - LLM: analisa mensagem, detecta se é pedido de horário/informação
   - Consulta agenda JSON local
   - Gera resposta pronta + opções de horário (se aplicável)
-- **Saída:** 
+- **Saída:**
   - Resposta pronta (para MEI copiar ou enviar direto via Playwright)
   - Confirmação de agendamento adicionado à agenda
 
@@ -83,7 +83,7 @@ Conecta a pesquisa "Automatização de Rotinas para MEI" com a implementação c
 - **Processamento:**
   - Análise: total faturado, despesas, lucro, variação vs mês anterior
   - LLM: gera narrativa explicativa (tipo consultor falando em português simples)
-- **Saída:** 
+- **Saída:**
   - Relatório narrativo (via CLI, e-mail, WhatsApp)
   - Alertas de anomalias (gasto acima da média, etc.)
 
@@ -111,7 +111,7 @@ Conecta a pesquisa "Automatização de Rotinas para MEI" com a implementação c
   - Validação de dados (cliente, valor, serviço/produto)
   - Chamada a API de NFS-e (prefeitura) ou geração de NF-e simulada
   - LLM: gera resumo/confirmação
-- **Saída:** 
+- **Saída:**
   - NF gerada e enviada automaticamente
   - Confirmação ao MEI
   - (Futuro) Integração com sistema de cobrança
@@ -141,7 +141,7 @@ Conecta a pesquisa "Automatização de Rotinas para MEI" com a implementação c
   - Daily job: verifica recebíveis em atraso
   - LLM: gera mensagem de cobrança educada
   - (Futuro) Envia via WhatsApp / SMS automaticamente
-- **Saída:** 
+- **Saída:**
   - Notificação para cliente
   - Alerta ao MEI com status de cobrança
 
@@ -304,5 +304,5 @@ Cada agente trabalha com dados simples (JSON):
 
 ---
 
-**Status:** Ready to Code  
+**Status:** Ready to Code
 **Próximo:** Implementar `deadlines_agent.py`

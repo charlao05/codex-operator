@@ -8,6 +8,7 @@ Suporta três métodos de autenticação:
 Nos casos em que as bibliotecas Google não estejam instaladas, o módulo
 levanta um RuntimeError com instruções.
 """
+
 from __future__ import annotations
 
 import base64
@@ -28,7 +29,9 @@ class GmailAPI:
         credentials_file: Optional[str] = None,
         access_token: Optional[str] = None,
     ):
-        self.service_account_file = service_account_file or os.getenv("GMAIL_SERVICE_ACCOUNT_FILE")
+        self.service_account_file = service_account_file or os.getenv(
+            "GMAIL_SERVICE_ACCOUNT_FILE"
+        )
         self.delegated_user = delegated_user or os.getenv("GMAIL_DELEGATED_USER")
         self.credentials_file = credentials_file or os.getenv("GMAIL_CREDENTIALS_FILE")
         self.access_token = access_token or os.getenv("GMAIL_ACCESS_TOKEN")
@@ -45,7 +48,8 @@ class GmailAPI:
         # Prioridade 1: Service account + delegated user (domain-wide delegation)
         if self.service_account_file and self.delegated_user:
             creds = service_account.Credentials.from_service_account_file(
-                self.service_account_file, scopes=["https://www.googleapis.com/auth/gmail.send"]
+                self.service_account_file,
+                scopes=["https://www.googleapis.com/auth/gmail.send"],
             )
             creds = creds.with_subject(self.delegated_user)
             service = build("gmail", "v1", credentials=creds)
@@ -55,7 +59,8 @@ class GmailAPI:
         # Prioridade 1b: Service account (simples, sem delegação)
         if self.service_account_file:
             creds = service_account.Credentials.from_service_account_file(
-                self.service_account_file, scopes=["https://www.googleapis.com/auth/gmail.send"]
+                self.service_account_file,
+                scopes=["https://www.googleapis.com/auth/gmail.send"],
             )
             service = build("gmail", "v1", credentials=creds)
             logger.info("Gmail service built with Service Account (no delegation)")
@@ -66,7 +71,8 @@ class GmailAPI:
             from google.oauth2.credentials import Credentials  # type: ignore
 
             creds = Credentials.from_authorized_user_file(
-                self.credentials_file, scopes=["https://www.googleapis.com/auth/gmail.send"]
+                self.credentials_file,
+                scopes=["https://www.googleapis.com/auth/gmail.send"],
             )
             service = build("gmail", "v1", credentials=creds)
             logger.info("Gmail service built with OAuth credentials file")
@@ -89,7 +95,9 @@ class GmailAPI:
             "3. GMAIL_ACCESS_TOKEN (para Cloud Shell)"
         )
 
-    def _prepare_raw_message(self, sender: str, to: Iterable[str], subject: str, body: str) -> str:
+    def _prepare_raw_message(
+        self, sender: str, to: Iterable[str], subject: str, body: str
+    ) -> str:
         msg = EmailMessage()
         msg["From"] = sender
         msg["To"] = ", ".join(to)
@@ -98,7 +106,14 @@ class GmailAPI:
         raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
         return raw
 
-    def send_message(self, recipients: Iterable[str], subject: str, body: str, sender: Optional[str] = None, service: Optional[Any] = None) -> Dict[str, Any]:
+    def send_message(
+        self,
+        recipients: Iterable[str],
+        subject: str,
+        body: str,
+        sender: Optional[str] = None,
+        service: Optional[Any] = None,
+    ) -> Dict[str, Any]:
         sender = sender or os.getenv("SENDER_EMAIL")
         if not sender:
             raise RuntimeError("SENDER_EMAIL não configurado para envio via Gmail")
@@ -108,19 +123,30 @@ class GmailAPI:
 
         raw = self._prepare_raw_message(sender, recipients, subject, body)
         try:
-            res = service.users().messages().send(userId="me", body={"raw": raw}).execute()
+            res = (
+                service.users()
+                .messages()
+                .send(userId="me", body={"raw": raw})
+                .execute()
+            )
             logger.info("Gmail sent message id=%s", res.get("id"))
             return {"status": "sent", "id": res.get("id"), "raw": res}
         except Exception as exc:
             logger.exception("Falha ao enviar via Gmail API: %s", exc)
             return {"status": "failed", "error": str(exc)}
 
-    def send_message_from_sale(self, sale: Dict[str, Any], service: Optional[Any] = None) -> Dict[str, Any]:
+    def send_message_from_sale(
+        self, sale: Dict[str, Any], service: Optional[Any] = None
+    ) -> Dict[str, Any]:
         recipient = sale.get("client_email") or sale.get("email")
         if not recipient:
             return {"status": "skipped", "reason": "no_email"}
         subject = f"Instruções para emissão da NFS-e — {sale.get('id', '')}"
-        body = sale.get("instructions") or sale.get("note") or "Segue instruções para emissão da nota."
+        body = (
+            sale.get("instructions")
+            or sale.get("note")
+            or "Segue instruções para emissão da nota."
+        )
         return self.send_message([recipient], subject, body, service=service)
 
 

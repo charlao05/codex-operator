@@ -9,6 +9,7 @@ Usa `smtplib` para enviar mensagens. Configurável via variáveis de ambiente:
 
 O envio é básico e adequado para notificações automatizadas.
 """
+
 from __future__ import annotations
 
 import os
@@ -45,7 +46,9 @@ class EmailAPI:
         attachments: Optional[Iterable[str]] = None,
     ) -> Dict[str, str]:
         if not self.host or not self.port:
-            raise RuntimeError("EMAIL_SMTP_HOST e EMAIL_SMTP_PORT devem estar configurados no .env")
+            raise RuntimeError(
+                "EMAIL_SMTP_HOST e EMAIL_SMTP_PORT devem estar configurados no .env"
+            )
         if not self.sender:
             raise RuntimeError("SENDER_EMAIL deve estar configurado no .env")
 
@@ -64,7 +67,9 @@ class EmailAPI:
                     maintype = "application"
                     subtype = "octet-stream"
                     filename = path.split("/")[-1]
-                    msg.add_attachment(data, maintype=maintype, subtype=subtype, filename=filename)
+                    msg.add_attachment(
+                        data, maintype=maintype, subtype=subtype, filename=filename
+                    )
                 except Exception:
                     logger.exception("Falha ao anexar arquivo %s", path)
 

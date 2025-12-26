@@ -2,9 +2,11 @@
 
 import time
 import sys
-sys.path.insert(0, '.')
 
-from src.core.agent_queue import AgentQueue, TaskPriority, create_deadline
+sys.path.insert(0, ".")
+
+from src.core.agent_queue import AgentQueue, TaskPriority, create_deadline  # noqa: E402
+from src.core.circuit_breaker import CircuitBreaker, CircuitBreakerConfig  # noqa: E402
 
 print("=" * 80)
 print("BENCHMARK: Priority Queue Performance")
@@ -27,11 +29,13 @@ for i in range(1000):
         cost=1,
         agent_name="test",
         client_id=f"c{i}",
-        payload={}
+        payload={},
     )
 push_time = time.perf_counter() - start
 
-print(f"Push 1000 tasks: {push_time:.4f}s ({push_time/1000*1_000_000:.2f}μs per task)")
+print(
+    f"Push 1000 tasks: {push_time:.4f}s ({push_time / 1000 * 1_000_000:.2f}μs per task)"
+)
 
 # Pop 1000 tasks
 start = time.perf_counter()
@@ -41,7 +45,9 @@ while not pq.is_empty():
     count += 1
 pop_time = time.perf_counter() - start
 
-print(f"Pop {count} tasks: {pop_time:.4f}s ({pop_time/count*1_000_000:.2f}μs per task)")
+print(
+    f"Pop {count} tasks: {pop_time:.4f}s ({pop_time / count * 1_000_000:.2f}μs per task)"
+)
 
 # Teste 2: Prioridade vs Sequential
 print("\n2. PRIORITY ORDERING TEST")
@@ -68,7 +74,9 @@ while not pq2.is_empty():
     task = pq2.pop()
     priorities.append(task.priority)
 
-print(f"Tasks popped in priority order: {priorities[0] == 1} (expected CRITICAL=1 first)")
+print(
+    f"Tasks popped in priority order: {priorities[0] == 1} (expected CRITICAL=1 first)"
+)
 print(f"First 5: {priorities[:5]}")
 print(f"Last 5: {priorities[-5:]}")
 
@@ -76,16 +84,17 @@ print(f"Last 5: {priorities[-5:]}")
 print("\n3. CIRCUIT BREAKER OVERHEAD")
 print("-" * 80)
 
-from src.core.circuit_breaker import CircuitBreaker, CircuitBreakerConfig
-
 cb = CircuitBreaker(CircuitBreakerConfig(name="test"))
+
 
 @cb.guard()
 def protected_func():
     return {"status": "ok"}
 
+
 def unprotected_func():
     return {"status": "ok"}
+
 
 # Baseline
 start = time.perf_counter()

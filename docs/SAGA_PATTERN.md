@@ -1,8 +1,8 @@
 # SAGA Pattern Implementation
 
-**Version:** v1.1  
-**Status:** Production Ready  
-**Tests:** 43/43 passing (26 unit + 12 integration + 5 concrete examples)  
+**Version:** v1.1
+**Status:** Production Ready
+**Tests:** 43/43 passing (26 unit + 12 integration + 5 concrete examples)
 
 ---
 
@@ -376,7 +376,7 @@ Falha+comp:  80-100ms (4 passos + 3 reversões × ~10ms)
    ```python
    # ✗ RUIM: Global mutable state
    global_counter += 1
-   
+
    # ✓ BOM: Usar contexto
    ctx['counter'] = ctx.get('counter', 0) + 1
    ```
@@ -385,7 +385,7 @@ Falha+comp:  80-100ms (4 passos + 3 reversões × ~10ms)
    ```python
    # ✗ RUIM: Sem reverter
    SagaStep("create_nf", action, compensation=None)
-   
+
    # ✓ BOM: Sempre compensar
    SagaStep("create_nf", action, compensation=cancel_nf)
    ```
@@ -394,7 +394,7 @@ Falha+comp:  80-100ms (4 passos + 3 reversões × ~10ms)
    ```python
    # ✗ RUIM: Esperar demais
    timeout=300.0  # 5 minutos?!
-   
+
    # ✓ BOM: Razoável
    timeout=10.0   # Falha rápido
    ```
@@ -406,7 +406,7 @@ Falha+comp:  80-100ms (4 passos + 3 reversões × ~10ms)
        api.cancel(ctx['id'])
    except:
        pass  # Ignorar?
-   
+
    # ✓ BOM: Logar e alertar
    try:
        api.cancel(ctx['id'])
@@ -527,7 +527,7 @@ def test_booking_saga_success(orchestrator):
             # ...
         }
     )
-    
+
     assert execution.state == SagaState.SUCCEEDED
     assert len(execution.steps_completed) == 4
     assert 'nf_id' in execution.context
@@ -619,6 +619,6 @@ SAGA Pattern é essencial para coordenar múltiplas APIs:
 
 ---
 
-**Pronto para produção:** ✅ 43/43 testes passando  
-**Documentação:** ✅ Completa com exemplos  
+**Pronto para produção:** ✅ 43/43 testes passando
+**Documentação:** ✅ Completa com exemplos
 **Performance:** ✅ <50ms por saga típico

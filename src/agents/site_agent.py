@@ -12,9 +12,7 @@ def planejar(site: str, objetivo: str) -> dict:
     """
     Usa o LLM para gerar um plano de automação baseado na config do site.
     """
-    logger.info(
-        f"Planejando objetivo '{objetivo}' para o site '{site}'"
-    )
+    logger.info(f"Planejando objetivo '{objetivo}' para o site '{site}'")
 
     config_site = config_loader.carregar_config_site(site)
 
@@ -25,7 +23,7 @@ def planejar(site: str, objetivo: str) -> dict:
         contexto_site=config_site,
     )
     return plano
- 
+
 
 def executar_plano(site: str, plano: dict) -> None:
     """Executa um plano simples retornado pelo LLM.
@@ -60,13 +58,17 @@ def executar_plano(site: str, plano: dict) -> None:
                     if url:
                         actions.abrir_url(page, url)
                     else:
-                        logger.warning("open_url sem 'url' nos parametros: %s", parametros)
+                        logger.warning(
+                            "open_url sem 'url' nos parametros: %s", parametros
+                        )
                 elif tipo in ("click", "clicar"):
                     selector = parametros.get("selector") or parametros.get("seletor")
                     if selector:
                         actions.clicar(page, selector)
                     else:
-                        logger.warning("click sem 'selector' nos parametros: %s", parametros)
+                        logger.warning(
+                            "click sem 'selector' nos parametros: %s", parametros
+                        )
                 elif tipo in ("type", "digitar"):
                     selector = parametros.get("selector") or parametros.get("seletor")
                     text = parametros.get("text") or parametros.get("texto")
@@ -82,7 +84,9 @@ def executar_plano(site: str, plano: dict) -> None:
                         if timeout is None:
                             actions.esperar_selector(page, selector)
                         else:
-                            actions.esperar_selector(page, selector, timeout_ms=int(timeout))
+                            actions.esperar_selector(
+                                page, selector, timeout_ms=int(timeout)
+                            )
                     else:
                         logger.warning("wait_selector sem selector: %s", parametros)
                 elif tipo in ("wait_seconds", "aguardar_segundos"):
@@ -125,9 +129,13 @@ def executar_plano(site: str, plano: dict) -> None:
                     if timeout is None:
                         actions.esperar_selector(page, selector)
                     else:
-                        actions.esperar_selector(page, selector, timeout_ms=int(timeout))
+                        actions.esperar_selector(
+                            page, selector, timeout_ms=int(timeout)
+                        )
                 else:
-                    logger.warning("Ação não reconhecida ou parâmetros faltando: %s", step)
+                    logger.warning(
+                        "Ação não reconhecida ou parâmetros faltando: %s", step
+                    )
 
     except Exception as exc:  # noqa: BLE001
         logger.exception("Erro ao executar o plano: %s", exc)

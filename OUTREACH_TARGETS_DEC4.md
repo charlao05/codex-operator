@@ -1,9 +1,9 @@
 # 📧 OUTREACH DEC 4 - PRIMEIRA RODADA (SALÕES)
 
-**Status:** ✅ PRONTO PARA ENVIO 9h00 AMANHÃ  
-**Template:** Version A (Pain Point Driven)  
-**Targets:** 5 Salões de Beleza  
-**Open Rate Esperada:** 20-25%  
+**Status:** ✅ PRONTO PARA ENVIO 9h00 AMANHÃ
+**Template:** Version A (Pain Point Driven)
+**Targets:** 5 Salões de Beleza
+**Open Rate Esperada:** 20-25%
 **Objetivo:** 1-2 respostas que virem para demo
 
 ---
@@ -11,33 +11,33 @@
 ## 🎯 TARGETS SELECIONADOS (Pesquisar Google Maps + Instagram)
 
 ### TARGET 1: Studio Beleza Premium
-- **Contato:** contato@studiobeleza.com.br  
-- **Owner:** Mariana  
-- **Volume:** ~30 agendamentos/semana  
+- **Contato:** contato@studiobeleza.com.br
+- **Owner:** Mariana
+- **Volume:** ~30 agendamentos/semana
 - **Localização:** São Paulo, SP
 
 ### TARGET 2: Salão Estética Moderna
-- **Contato:** atendimento@esteticamoderna.com  
-- **Owner:** Juliana  
-- **Volume:** ~25 agendamentos/semana  
+- **Contato:** atendimento@esteticamoderna.com
+- **Owner:** Juliana
+- **Volume:** ~25 agendamentos/semana
 - **Localização:** Belo Horizonte, MG
 
 ### TARGET 3: Belle Cabelereira & Estética
-- **Contato:** contato@bellecabeleireira.com  
-- **Owner:** Paula  
-- **Volume:** ~35 agendamentos/semana  
+- **Contato:** contato@bellecabeleireira.com
+- **Owner:** Paula
+- **Volume:** ~35 agendamentos/semana
 - **Localização:** Curitiba, PR
 
 ### TARGET 4: Spa & Beleza Centro
-- **Contato:** reservas@spabeiezacentro.com  
-- **Owner:** Fernanda  
-- **Volume:** ~20 agendamentos/semana  
+- **Contato:** reservas@spabeiezacentro.com
+- **Owner:** Fernanda
+- **Volume:** ~20 agendamentos/semana
 - **Localização:** Brasília, DF
 
 ### TARGET 5: Studio Nails & Cabelo
-- **Contato:** contato@studionails.com.br  
-- **Owner:** Carolina  
-- **Volume:** ~40 agendamentos/semana  
+- **Contato:** contato@studionails.com.br
+- **Owner:** Carolina
+- **Volume:** ~40 agendamentos/semana
 - **Localização:** Rio de Janeiro, RJ
 
 ---
@@ -57,7 +57,7 @@ Rápida pergunta: quando você e a equipe conseguem responder emails de agendame
 
 Pergunto porque a maioria dos salões que a gente conversa gasta entre 1-2 horas DIÁRIAS respondendo emails, WhatsApp, formulários... tudo manualmente.
 
-Mariana, só isso representa ~10 horas por semana. 
+Mariana, só isso representa ~10 horas por semana.
 
 Pior: enquanto respondem manualmente, perdem agendamentos por atraso. Um cliente manda mensagem às 14h30, vocês só veem às 16h... já foi pra outro lugar.
 
@@ -65,9 +65,9 @@ Pior: enquanto respondem manualmente, perdem agendamentos por atraso. Um cliente
 
 **O que a gente construiu:**
 
-Um sistema que responde automaticamente TODOS os agendamentos (email, WhatsApp, Google Forms) e organiza tudo em um calendário. 
+Um sistema que responde automaticamente TODOS os agendamentos (email, WhatsApp, Google Forms) e organiza tudo em um calendário.
 
-Resultado? 
+Resultado?
 
 - Studio Beleza X: 30 agendamentos/semana → ZERO emails manuais (8 horas/semana economizadas)
 - Taxa de conversão: subiu de 82% → 95% (clientes não perdem porque demora responder)

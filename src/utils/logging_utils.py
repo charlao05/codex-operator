@@ -12,9 +12,7 @@ _LOG_FILE = Path("logs/automation.log")
 _LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 # Formato textual para o arquivo, mantendo rastreabilidade completa.
-_FILE_FORMAT = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
+_FILE_FORMAT = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 
 # Mantemos cache de loggers para evitar handlers duplicados.
 _LOGGER_CACHE: dict[str, logging.Logger] = {}
