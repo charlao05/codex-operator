@@ -42,9 +42,6 @@ git push origin hardening/datetime-detect-secrets
 
 8. Após merge na `main`:
 
-- Criar release no GitHub (usar o tag criado).
-- Publicar wheel no PyPI (via `twine`) ou usar GitHub Packages.
-- Push e publicar imagem Docker no registry desejado.
 
 Exemplo para PyPI (assumindo `~/.pypirc` configurado):
 
@@ -59,3 +56,13 @@ Exemplo para Docker Hub:
 docker tag codex-operator:local youruser/codex-operator:1.0.0
 docker push youruser/codex-operator:1.0.0
 ```
+
+## Configurar publicação automática (GitHub Actions)
+
+Para habilitar publicação automática quando uma release for criada, adicione os seguintes secrets no repositório (`Settings` → `Secrets and variables` → `Actions`):
+
+- `PYPI_API_TOKEN` — API token do PyPI (crie token em https://pypi.org/manage/account/token/).
+- `DOCKERHUB_USERNAME` — nome de usuário do Docker Hub.
+- `DOCKERHUB_TOKEN` — token de acesso do Docker Hub (ou password/API token).
+
+Depois de adicionar os secrets, publique a Release (tag) no GitHub; o workflow `.github/workflows/publish.yml` irá rodar e enviar os artefatos ao PyPI e Docker Hub.
