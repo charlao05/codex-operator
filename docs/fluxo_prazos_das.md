@@ -390,5 +390,5 @@ Após implementação, medir:
 
 ---
 
-**Status:** ✅ Pronto para Implementação  
+**Status:** ✅ Pronto para Implementação
 **Próximo:** Executar Passo 1 no terminal

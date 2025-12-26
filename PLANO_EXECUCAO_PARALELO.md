@@ -1,8 +1,8 @@
 # Plano de Execução Paralela: v1.1 + Go-Live Comercial
 
-**Data Início:** 4 de Dezembro de 2025  
-**Duração:** 5 semanas (34 dias)  
-**Estratégia:** Parallelização Técnico-Comercial  
+**Data Início:** 4 de Dezembro de 2025
+**Duração:** 5 semanas (34 dias)
+**Estratégia:** Parallelização Técnico-Comercial
 **Objetivo:** Beta paying customers + R$ 735 MRR + SAGA funcional
 
 ---
@@ -66,7 +66,7 @@ class SagaStep:
     compensation: Callable
     timeout: float = 30.0
     retry_count: int = 3
-    
+
 @dataclass
 class SagaExecution:
     saga_id: str
@@ -82,23 +82,23 @@ class SagaOrchestrator:
         self.logger = logging.getLogger("saga")
         self.executions: Dict[str, SagaExecution] = {}
         self.circuit_breaker_manager = ...
-        
+
     def define_saga(self, saga_name: str, steps: List[SagaStep]):
         """Define novo saga com passos sequenciais"""
-        
+
     def execute(self, saga_id: str, context: Dict) -> SagaExecution:
         """Executa saga com tratamento de falhas"""
         # 1. Executa passos sequencialmente
         # 2. Em falha, executa compensações na ordem reversa
         # 3. Registra estado em cada etapa
         # 4. Retorna SagaExecution com estado final
-        
+
     def compensate(self, saga_id: str):
         """Executa compensações para rollback"""
-        
+
     def get_status(self, saga_id: str) -> SagaExecution:
         """Retorna status atual do saga"""
-        
+
     def retry_failed(self, saga_id: str):
         """Retenta saga que falhou"""
 ```
@@ -241,7 +241,7 @@ Subject: [Seu Nome], você responde emails de agendamento manualmente?
 
 Oi [Nome],
 
-Vi que você é [profissão] e provavelmente recebe dezenas de 
+Vi que você é [profissão] e provavelmente recebe dezenas de
 solicitações de agendamento por dia.
 
 Desenvolvemos um sistema que:
@@ -254,7 +254,7 @@ Resultado: Você ganha 5h+ por semana de volta.
 
 Primeira semana é grátis, sem cartão.
 
-Quer testar? 
+Quer testar?
 [Link para agendamento de demo]
 
 Abraço,
@@ -514,6 +514,6 @@ Charles
 
 ---
 
-**Aprovado por:** Charles  
-**Data:** 3 de Dezembro de 2025  
+**Aprovado por:** Charles
+**Data:** 3 de Dezembro de 2025
 **Status:** 🎬 **PRONTO PARA COMEÇAR**

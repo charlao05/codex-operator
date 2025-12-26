@@ -227,6 +227,6 @@ Cada opção leva ~30-120 min. Vamos entregar antes de você piscar.
 
 ---
 
-**Última atualização:** 17 de novembro de 2025  
-**Versão:** Codex Operator 0.3-agentes (Agente 1/5)  
+**Última atualização:** 17 de novembro de 2025
+**Versão:** Codex Operator 0.3-agentes (Agente 1/5)
 **Status:** ✅ MVP Pronto, Documentação Completa, Aguardando Próximo Passo

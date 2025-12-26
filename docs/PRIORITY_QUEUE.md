@@ -1,8 +1,8 @@
 ## Priority Queue (Min-Heap) - Documentação Técnica
 
-**Versão:** v1.0  
-**Autor:** Codex Operator  
-**Data:** Dezembro 2025  
+**Versão:** v1.0
+**Autor:** Codex Operator
+**Data:** Dezembro 2025
 
 ---
 
@@ -16,7 +16,7 @@ A **Priority Queue** implementada com **Min-Heap** é uma estrutura de dados que
 Sem Priority Queue (Sequential):
   Task 1 (LOW, 30min deadline)  → 45s processamento
   Task 2 (CRITICAL, NOW!)      → Aguarda 45s ❌
-  
+
 Com Priority Queue (Min-Heap):
   Task 2 (CRITICAL, NOW!)      → 2s processamento ✓
   Task 1 (LOW, 30min deadline) → 45s processamento ✓
@@ -222,7 +222,7 @@ sales = [
 for sale in sales:
     priority = TaskPriority.CRITICAL if sale["amount"] > 5000 else TaskPriority.MEDIUM
     deadline = create_deadline(days_ahead=1)
-    
+
     task_id = nf_queue.push(
         priority=priority,
         deadline=deadline,
@@ -261,11 +261,11 @@ for booking in bookings:
         priority = TaskPriority.HIGH
     else:
         priority = TaskPriority.MEDIUM
-    
+
     # Deadline: data do evento - dias de antecedência
     event_date = datetime.fromisoformat(booking["datetime"])
     deadline = event_date - timedelta(days=booking["reminder_days"])
-    
+
     booking_queue.push(
         priority=priority,
         deadline=deadline,
@@ -296,7 +296,7 @@ invoices = [
 for inv in invoices:
     due = datetime.fromisoformat(inv["due_date"])
     days_overdue = (datetime.now() - due).days
-    
+
     # Prioridade por dias de atraso
     if days_overdue >= 5:
         priority = TaskPriority.CRITICAL
@@ -306,10 +306,10 @@ for inv in invoices:
         priority = TaskPriority.MEDIUM
     else:
         priority = TaskPriority.LOW
-    
+
     # Cost: mais caro cobrar faturas maiores (human review)
     cost = min(10, int(inv["amount"] / 200))
-    
+
     collection_queue.push(
         priority=priority,
         deadline=due,
@@ -325,7 +325,7 @@ for _ in range(collection_queue.size()):
     days_overdue = (datetime.now() - datetime.fromisoformat(
         task.payload["due_date"]
     )).days
-    
+
     print(f"Cobrando {task.payload['invoice']} (atrasado {days_overdue} dias, prioridade={task.priority})")
 ```
 

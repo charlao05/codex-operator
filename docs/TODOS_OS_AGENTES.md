@@ -218,6 +218,6 @@ Responda com **A, B, C, D ou E** e eu executo!
 
 ---
 
-**Versão:** Codex Operator v0.4-completo  
-**Data:** 17 de novembro de 2025  
+**Versão:** Codex Operator v0.4-completo
+**Data:** 17 de novembro de 2025
 **Status:** ✅ **5 Agentes Implementados, Testados e Documentados. Pronto para MVP.**

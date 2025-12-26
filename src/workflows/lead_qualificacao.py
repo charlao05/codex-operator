@@ -46,7 +46,9 @@ def _extrair_json_qualificacao(texto: str) -> str:
     return texto[inicio : fim + 1]
 
 
-def qualificar_lead(respostas_form: Dict[str, Any], contexto_nicho: str = "") -> Dict[str, Any]:
+def qualificar_lead(
+    respostas_form: Dict[str, Any], contexto_nicho: str = ""
+) -> Dict[str, Any]:
     """
     Classifica um lead em Quente, Morno ou Frio com base em respostas de formulário.
 
@@ -175,9 +177,11 @@ def qualificar_lote_leads(
                 }
             )
 
-    logger.info("Lote processado: %d sucessos, %d erros", 
-                sum(1 for r in resultados if r["status"] == "sucesso"),
-                sum(1 for r in resultados if r["status"] == "erro"))
+    logger.info(
+        "Lote processado: %d sucessos, %d erros",
+        sum(1 for r in resultados if r["status"] == "sucesso"),
+        sum(1 for r in resultados if r["status"] == "erro"),
+    )
 
     return resultados
 
@@ -195,5 +199,7 @@ if __name__ == "__main__":  # pragma: no cover
     }
 
     print("Qualificando exemplo de lead...\n")
-    resultado = qualificar_lead(exemplo_lead, contexto_nicho="Imobiliária de luxo em São Paulo")
+    resultado = qualificar_lead(
+        exemplo_lead, contexto_nicho="Imobiliária de luxo em São Paulo"
+    )
     print(f"\nResultado:\n{json.dumps(resultado, indent=2, ensure_ascii=False)}")

@@ -1,4 +1,3 @@
-import json
 import tempfile
 import pytest
 from pathlib import Path
@@ -35,7 +34,9 @@ def test_load_sales_file_not_found():
 
 
 def test_load_sales_invalid_json():
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False, encoding="utf-8") as f:
+    with tempfile.NamedTemporaryFile(
+        mode="w", suffix=".json", delete=False, encoding="utf-8"
+    ) as f:
         f.write("{invalid json}")
         temp_path = f.name
     try:

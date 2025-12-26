@@ -1,7 +1,7 @@
 # Resumo Executivo: Codex Operator v0.3-final
 
-**Data:** 17 de novembro de 2025  
-**Status:** ✅ Production-Ready  
+**Data:** 17 de novembro de 2025
+**Status:** ✅ Production-Ready
 **Versão:** v0.3-final (com CLI aprimorada)
 
 ---
@@ -196,7 +196,7 @@ Agora é só **escolher nicho, abordar clientes, vender.**
 
 ---
 
-**Contato para dúvidas técnicas:**  
+**Contato para dúvidas técnicas:**
 Todos os workflows rodam com:
 ```powershell
 python -m src.workflows.<nome_workflow>

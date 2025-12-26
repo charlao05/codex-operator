@@ -73,7 +73,7 @@ def sugerir_slots_basicos(agenda: Dict[str, Any], quantidade: int = 3) -> List[s
     slots: List[str] = []
 
     next_days = int(agenda.get("next_days_to_offer", 7))
-    duration = int(agenda.get("slot_duration_minutes", 60))
+    # duration configured but not used in this simplified suggester
 
     # Simples: varre os próximos 'next_days' e pega janelas nas horas 10, 14, 16
     candidate_hours = [10, 14, 16]
@@ -143,7 +143,9 @@ Mantenha a resposta curta (máximo 100 palavras).
     return resposta.strip()
 
 
-def processar_mensagens(agenda_path: str | Path, mensagens_path: str | Path, contexto_negocio: str) -> List[Dict[str, Any]]:
+def processar_mensagens(
+    agenda_path: str | Path, mensagens_path: str | Path, contexto_negocio: str
+) -> List[Dict[str, Any]]:
     agenda = carregar_agenda(agenda_path)
     mensagens = carregar_mensagens(mensagens_path)
 
@@ -176,4 +178,4 @@ if __name__ == "__main__":
     ctx = "Salão de estética e beleza, Vila Velha/ES"
     out = processar_mensagens(agenda_path, mensagens_path, ctx)
     for r in out:
-        print(r['id'], r['resposta'])
+        print(r["id"], r["resposta"])

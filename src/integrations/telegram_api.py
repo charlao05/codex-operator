@@ -26,7 +26,9 @@ class TelegramAPI:
         self.base_url = f"https://api.telegram.org/bot{self.bot_token}"
 
         if not self.bot_token:
-            logger.error("Telegram bot token not found. Set TELEGRAM_BOT_TOKEN in environment.")
+            logger.error(
+                "Telegram bot token not found. Set TELEGRAM_BOT_TOKEN in environment."
+            )
             raise ValueError("Telegram bot token missing in environment or parameters.")
 
     def send_message(
@@ -60,7 +62,9 @@ class TelegramAPI:
                 data = response.json()
                 if data.get("ok"):
                     msg_id = data.get("result", {}).get("message_id")
-                    logger.info("Mensagem enviada para chat %s | message_id=%s", chat_id, msg_id)
+                    logger.info(
+                        "Mensagem enviada para chat %s | message_id=%s", chat_id, msg_id
+                    )
                     return data
                 else:
                     error_msg = data.get("description", "Unknown error")
@@ -102,7 +106,11 @@ class TelegramAPI:
                 data = response.json()
                 if data.get("ok"):
                     msg_id = data.get("result", {}).get("message_id")
-                    logger.info("Documento enviado para chat %s | message_id=%s", chat_id, msg_id)
+                    logger.info(
+                        "Documento enviado para chat %s | message_id=%s",
+                        chat_id,
+                        msg_id,
+                    )
                     return data
                 else:
                     error_msg = data.get("description", "Unknown error")

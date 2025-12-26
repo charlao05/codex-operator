@@ -73,4 +73,3 @@ def wait_seconds(page: Page, seconds: int) -> None:
         page.wait_for_timeout(seconds * 1000)
     except Exception as exc:  # noqa: BLE001
         raise RuntimeError(f"Erro ao aguardar {seconds} segundos: {exc}") from exc
-

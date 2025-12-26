@@ -1,7 +1,7 @@
 # 📊 SETUP CRM MÍNIMO - CHECKLIST
 
-**Data:** 4 de Dezembro, 2025  
-**Status:** ✅ PRONTO PARA EXECUTAR  
+**Data:** 4 de Dezembro, 2025
+**Status:** ✅ PRONTO PARA EXECUTAR
 **Tempo estimado:** 30 minutos total
 
 ---
@@ -155,14 +155,14 @@ Sistema automatizado que:
 
 ## 5. Contato
 
-Charles  
-📧 charles@codex-operator.com  
-📱 +55 11 XXXX-XXXX  
+Charles
+📧 charles@codex-operator.com
+📱 +55 11 XXXX-XXXX
 🌐 codex-operator.vercel.app
 
 ---
 
-**Assinado:** _____________  
+**Assinado:** _____________
 **Data:** _____________
 ```
 

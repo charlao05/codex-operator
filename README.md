@@ -288,6 +288,6 @@ Pronto para começar a vender automações de IA. 🚀
 
 ---
 
-**Data:** 17 de novembro de 2025  
-**Desenvolvedor:** Charles (com Codex Copilot)  
+**Data:** 17 de novembro de 2025
+**Desenvolvedor:** Charles (com Codex Copilot)
 **Status:** Ativo e em evolução

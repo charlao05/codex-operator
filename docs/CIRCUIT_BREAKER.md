@@ -1,8 +1,8 @@
 ## Circuit Breaker Pattern - Documentação Técnica
 
-**Versão:** v1.0  
-**Autor:** Codex Operator  
-**Data:** Dezembro 2025  
+**Versão:** v1.0
+**Autor:** Codex Operator
+**Data:** Dezembro 2025
 
 ---
 
@@ -283,25 +283,25 @@ def notify_user(user, message):
     @cb_gmail.guard()
     def via_gmail():
         return gmail_api.send(user.gmail, message)
-    
+
     result = via_gmail()
     if result:
         return result
-    
+
     # Gmail falhou, tenta Email
     @cb_email.guard()
     def via_email():
         return email_api.send(user.email, message)
-    
+
     result = via_email()
     if result:
         return result
-    
+
     # Email também falhou, tenta SMS
     @cb_sms.guard()
     def via_sms():
         return sms_api.send(user.phone, message)
-    
+
     result = via_sms()
     return result
 
@@ -370,7 +370,7 @@ def notify_user(user, message):
         result = send_func(...)
         if result:
             return {"channel": fallback_name, "result": result}
-    
+
     return {"channel": "none", "error": "All channels failed"}
 
 # 4. Monitorar em produção

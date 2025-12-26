@@ -2,14 +2,15 @@
 """Script de teste rápido da integração Queue no Orchestrator."""
 
 import sys
-sys.path.insert(0, '.')
+
+sys.path.insert(0, ".")
 
 from src.core.agent_queue import AgentQueue, TaskPriority, create_deadline
 
 # Teste 1: Criar fila e adicionar tarefas
 print("=== TESTE 1: Criar Fila e Adicionar Tarefas ===")
 queue = AgentQueue(max_size=100)
-print(f"✓ Fila criada com max_size=100")
+print("✓ Fila criada com max_size=100")
 print(f"  Size: {queue.size()}, Empty: {queue.is_empty()}")
 
 # Teste 2: Adicionar tarefas com diferentes prioridades
@@ -17,19 +18,21 @@ print("\n=== TESTE 2: Adicionar Tarefas ===")
 deadline = create_deadline(days_ahead=1)
 
 task_ids = []
-for i, (agent_name, priority) in enumerate([
-    ("nf_agent", TaskPriority.HIGH),
-    ("attendance_agent", TaskPriority.MEDIUM),
-    ("collections_agent", TaskPriority.CRITICAL),
-    ("deadlines_agent", TaskPriority.LOW),
-]):
+for i, (agent_name, priority) in enumerate(
+    [
+        ("nf_agent", TaskPriority.HIGH),
+        ("attendance_agent", TaskPriority.MEDIUM),
+        ("collections_agent", TaskPriority.CRITICAL),
+        ("deadlines_agent", TaskPriority.LOW),
+    ]
+):
     task_id = queue.push(
         priority=priority,
         deadline=deadline,
-        cost=i+1,
+        cost=i + 1,
         agent_name=agent_name,
         client_id=f"client_{i}",
-        payload={"index": i}
+        payload={"index": i},
     )
     task_ids.append(task_id)
     print(f"✓ Tarefa adicionada: {task_id} ({agent_name}, priority={priority})")

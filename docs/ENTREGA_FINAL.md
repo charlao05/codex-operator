@@ -280,8 +280,8 @@ python -m src.workflows.atendimento_automatico
 
 ---
 
-**Data:** 17 de novembro de 2025  
-**Versão:** Codex Operator 0.3-agentes (Agente 1/5 Completo)  
+**Data:** 17 de novembro de 2025
+**Versão:** Codex Operator 0.3-agentes (Agente 1/5 Completo)
 **Status:** ✅ **PRONTO PARA PRÓXIMO PASSO**
 
 Aguardando sua escolha: **A / B / C** 🚀

@@ -39,7 +39,7 @@ git log --oneline -5
 ## ✅ Funcionalidades Completas em v0.9:
 
 - ✅ NF Agent (validação, geração de passos)
-- ✅ **Telegram Bot** (@chama_automation_bot) 
+- ✅ **Telegram Bot** (@chama_automation_bot)
 - ✅ **Email SMTP** (charles.rsilva05@gmail.com)
 - ✅ **Google Calendar** (testes passando)
 - ✅ **WhatsApp** (integração anterior)

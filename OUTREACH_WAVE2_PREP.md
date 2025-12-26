@@ -1,8 +1,8 @@
 # 📧 WAVE 2 - PRÓXIMOS 5 EMAILS (Nicho 2: Consultórios/Odontologia)
 
-**Status:** Pronto para envio  
-**Onda:** 2 (5 contatos - Consultórios Médicos/Odontológicos)  
-**Tempo de envio:** Depois que Wave 1 completa (6 Dezembro, 14:30)  
+**Status:** Pronto para envio
+**Onda:** 2 (5 contatos - Consultórios Médicos/Odontológicos)
+**Tempo de envio:** Depois que Wave 1 completa (6 Dezembro, 14:30)
 **Diferença:** Version B (Curiosity + Social Proof)
 
 ---
@@ -303,8 +303,8 @@ Charles
 
 ---
 
-**Status:** ✅ Wave 2 pronta para envio  
-**Execução:** 6-7 Dezembro  
+**Status:** ✅ Wave 2 pronta para envio
+**Execução:** 6-7 Dezembro
 **Próximo:** Monitorar Wave 1 até lá
 
 Vamos conseguir! 🚀

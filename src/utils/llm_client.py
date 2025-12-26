@@ -20,6 +20,8 @@ load_dotenv()
 
 logger = get_logger(__name__)
 
+# flake8: noqa: E501
+
 api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     raise RuntimeError("OPENAI_API_KEY não encontrado no ambiente (.env).")
@@ -39,7 +41,9 @@ def _extrair_json(texto: str) -> str:
     return texto[inicio : fim + 1]
 
 
-def gerar_plano_acao(site: str, objetivo: str, contexto_site: Dict[str, Any]) -> Dict[str, Any]:
+def gerar_plano_acao(
+    site: str, objetivo: str, contexto_site: Dict[str, Any]
+) -> Dict[str, Any]:
     """
     Gera um PLANO DE AÇÃO em JSON para automatizar um site via navegador.
 
@@ -148,7 +152,9 @@ REGRAS OBRIGATÓRIAS:
     return plano
 
 
-def gerar_texto_simples(prompt: str, max_tokens: int = 200, temperature: float = 0.2) -> str:
+def gerar_texto_simples(
+    prompt: str, max_tokens: int = 200, temperature: float = 0.2
+) -> str:
     """
     Gera um texto simples a partir de um prompt em linguagem natural.
 
@@ -159,7 +165,10 @@ def gerar_texto_simples(prompt: str, max_tokens: int = 200, temperature: float =
     resposta = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": "Você é um assistente útil que responde em português de forma curta e direta."},
+            {
+                "role": "system",
+                "content": "Você é um assistente útil que responde em português de forma curta e direta.",
+            },
             {"role": "user", "content": prompt},
         ],
         max_tokens=max_tokens,

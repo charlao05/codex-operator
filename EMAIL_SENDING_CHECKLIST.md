@@ -1,8 +1,8 @@
 # 📧 EMAIL ENVIO AUTOMATION - Gmail Scheduler
 
-**Status:** Prontos para envio  
-**Onda:** 1 (5 contatos - Salões de Beleza)  
-**Tempo de envio:** 14:30 (horário ótimo para abertura)  
+**Status:** Prontos para envio
+**Onda:** 1 (5 contatos - Salões de Beleza)
+**Tempo de envio:** 14:30 (horário ótimo para abertura)
 
 ---
 
@@ -28,7 +28,7 @@ Rápida pergunta: quando você e a equipe conseguem responder emails de agendame
 
 Pergunto porque a maioria dos salões que a gente conversa gasta entre 1-2 horas DIÁRIAS respondendo emails, WhatsApp, formulários... tudo manualmente.
 
-Mariana, só isso representa ~10 horas por semana. 
+Mariana, só isso representa ~10 horas por semana.
 
 Pior: enquanto respondem manualmente, perdem agendamentos por atraso. Um cliente manda mensagem às 14h30, vocês só veem às 16h... já foi pra outro lugar.
 
@@ -36,9 +36,9 @@ Pior: enquanto respondem manualmente, perdem agendamentos por atraso. Um cliente
 
 O que a gente construiu:
 
-Um sistema que responde automaticamente TODOS os agendamentos (email, WhatsApp, Google Forms) e organiza tudo em um calendário. 
+Um sistema que responde automaticamente TODOS os agendamentos (email, WhatsApp, Google Forms) e organiza tudo em um calendário.
 
-Resultado? 
+Resultado?
 
 - Studio Beleza X: 30 agendamentos/semana → ZERO emails manuais (8 horas/semana economizadas)
 - Taxa de conversão: subiu de 82% → 95% (clientes não perdem porque demora responder)
@@ -207,8 +207,8 @@ Ativar em Gmail Settings se quiser tracking automático
 
 ---
 
-**Status:** ✅ Pronto para enviar  
-**Ação:** Agendar 5 emails no Gmail para 14:30 amanhã  
+**Status:** ✅ Pronto para enviar
+**Ação:** Agendar 5 emails no Gmail para 14:30 amanhã
 **Próximo:** Wave 2 prepara amanhã à noite
 
 🚀 Começamos amanhã!

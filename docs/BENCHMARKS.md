@@ -1,8 +1,8 @@
 ## Benchmarks: Priority Queue + Circuit Breaker
 
-**Versão:** v1.0  
-**Data:** Dezembro 2025  
-**Ambiente:** Python 3.12, Windows 11, Intel i7  
+**Versão:** v1.0
+**Data:** Dezembro 2025
+**Ambiente:** Python 3.12, Windows 11, Intel i7
 
 ---
 
@@ -86,7 +86,7 @@ Without Circuit Breaker:
 With Circuit Breaker (CLOSED state):
   Total time: 0.0412s
   Per-call: 4.12μs
-  
+
 Overhead: 3.73μs per call (~1000% relative increase from 0.39μs baseline)
 
 Analysis:
@@ -276,7 +276,7 @@ deadline = create_deadline(days_ahead=1)
 for i in range(1000):
     queue.push(TaskPriority.MEDIUM, deadline, 1, "test", f"c{i}", {})
 
-# Circuit Breaker performance  
+# Circuit Breaker performance
 cb = CircuitBreaker()
 
 @cb.guard()

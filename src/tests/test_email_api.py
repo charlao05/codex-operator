@@ -1,5 +1,3 @@
-import os
-
 from src.integrations.email_api import EmailAPI
 
 
@@ -47,9 +45,15 @@ def test_send_email_monkeypatched(monkeypatch):
     # Substitui smtplib.SMTP e SMTP_SSL
     import smtplib
 
-    monkeypatch.setattr(smtplib, "SMTP", lambda host, port, timeout=30: FakeSMTP(host, port, timeout))
-    monkeypatch.setattr(smtplib, "SMTP_SSL", lambda host, port, context=None: FakeSMTPSSL(host, port))
+    monkeypatch.setattr(
+        smtplib, "SMTP", lambda host, port, timeout=30: FakeSMTP(host, port, timeout)
+    )
+    monkeypatch.setattr(
+        smtplib, "SMTP_SSL", lambda host, port, context=None: FakeSMTPSSL(host, port)
+    )
 
     email_api = EmailAPI()
-    res = email_api.send_email(["cliente@test.local"], "Assunto teste", "Corpo da mensagem")
+    res = email_api.send_email(
+        ["cliente@test.local"], "Assunto teste", "Corpo da mensagem"
+    )
     assert res["status"] == "sent"

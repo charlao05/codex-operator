@@ -30,7 +30,7 @@
   - URL base e URL de login
   - Seletores CSS para formulários
   - Timeouts customizáveis
-  
+
 - [x] `src/utils/config_loader.py` atualizado:
   - Suporta novo padrão: `config/sites/{site}.yaml`
   - Fallback automático para compatibilidade: `config/sites.yaml`
@@ -240,6 +240,6 @@ Agora é **comercial**: escolher nicho, abordar clientes, fechar vendas.
 
 ---
 
-**Data:** 17 de novembro de 2025  
-**Versão:** v0.2-comercial  
+**Data:** 17 de novembro de 2025
+**Versão:** v0.2-comercial
 **Status:** Production-Ready

@@ -13,11 +13,12 @@ from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 
 # Configuração
+import os
+
 GMAIL_ADDRESS = "charles.rsilva05@gmail.com"  # Seu email
 # Segurança: não armazene senhas no código.
 # O script tentará ler a senha da variável de ambiente `GMAIL_APP_PASSWORD`.
 # Se não encontrar, pedirá a senha interativamente sem ecoar no terminal.
-import os
 
 # GMAIL_PASSWORD será resolvida apenas no momento do envio (evita prompt durante import)
 GMAIL_PASSWORD = None
@@ -35,15 +36,15 @@ Rápida pergunta: quando você e a equipe conseguem responder emails de agendame
 
 Pergunto porque a maioria dos salões que a gente conversa gasta entre 1-2 horas DIÁRIAS respondendo emails, WhatsApp, formulários... tudo manualmente.
 
-Mariana, só isso representa ~10 horas por semana. 
+Mariana, só isso representa ~10 horas por semana.
 
 Pior: enquanto respondem manualmente, perdem agendamentos por atraso. Um cliente manda mensagem às 14h30, vocês só veem às 16h... já foi pra outro lugar.
 
 **O que a gente construiu:**
 
-Um sistema que responde automaticamente TODOS os agendamentos (email, WhatsApp, Google Forms) e organiza tudo em um calendário. 
+Um sistema que responde automaticamente TODOS os agendamentos (email, WhatsApp, Google Forms) e organiza tudo em um calendário.
 
-Resultado? 
+Resultado?
 
 - Studio Beleza X: 30 agendamentos/semana → ZERO emails manuais (8 horas/semana economizadas)
 - Taxa de conversão: subiu de 82% → 95% (clientes não perdem porque demora responder)
@@ -62,7 +63,7 @@ Charles Rodrigues
 Codex Operator
 (27) 9 9999-9999
 
-P.S. - Se 8 horas/semana economizadas + 13% de aumento de conversão soa interessante, manda msg que agendo mais rápido!"""
+P.S. - Se 8 horas/semana economizadas + 13% de aumento de conversão soa interessante, manda msg que agendo mais rápido!""",
     },
     {
         "to": "atendimento@esteticamoderna.com",
@@ -92,7 +93,7 @@ Sistema automático que:
 
 Resultado: Recupera de R$ 3-4k/mês em receita.
 
-**Quer testar?** 
+**Quer testar?**
 
 Levantei 5 slots essa semana pra demos (20 minutos).
 
@@ -105,7 +106,7 @@ Charles Rodrigues
 Codex Operator
 (27) 9 9999-9999
 
-P.S. - Tenho apenas 5 slots essa semana. Se interessar, responde hoje!"""
+P.S. - Tenho apenas 5 slots essa semana. Se interessar, responde hoje!""",
     },
     {
         "to": "contato@bellecabeleireira.com",
@@ -147,7 +148,7 @@ Charles Rodrigues
 Codex Operator
 (27) 9 9999-9999
 
-P.S. - Se R$ 800-1.200/semana em receita recuperada te interessa, me liga!"""
+P.S. - Se R$ 800-1.200/semana em receita recuperada te interessa, me liga!""",
     },
     {
         "to": "reservas@spabeiezacentro.com",
@@ -189,7 +190,7 @@ Se quiser testar, me avisa.
 Abraço,
 Charles Rodrigues
 Codex Operator
-(27) 9 9999-9999"""
+(27) 9 9999-9999""",
     },
     {
         "to": "contato@studionails.com.br",
@@ -235,25 +236,26 @@ Charles Rodrigues
 Codex Operator
 (27) 9 9999-9999
 
-P.S. - Esses 5 slots vão rápido. Se tiver interesse, responde hoje mesmo!"""
-    }
+P.S. - Esses 5 slots vão rápido. Se tiver interesse, responde hoje mesmo!""",
+    },
 ]
+
 
 def send_emails():
     """Envia os 5 emails Wave 1"""
-    print("\n" + "="*88)
+    print("\n" + "=" * 88)
     print("📧 GMAIL SMTP - WAVE 1 EMAIL SENDER")
-    print("="*88 + "\n")
-    
+    print("=" * 88 + "\n")
+
     sent_count = 0
     results = []
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
+
     try:
         # Normal send path (if not dry-run) will connect; dry-run handled by caller
-        print("="*88)
+        print("=" * 88)
         print("📤 INICIANDO PROCESSO DE ENVIO (ou simulação)")
-        print("="*88 + "\n")
+        print("=" * 88 + "\n")
 
         # If caller provided a server object (for tests) we respect it. Otherwise
         # the caller will handle connection. send_emails will raise if connection
@@ -262,49 +264,56 @@ def send_emails():
             print(f"\n📧 [{idx}/5] {email_data['name']} ({email_data['company']})")
             print(f"    Para: {email_data['to']}")
             print(f"    Assunto: {email_data['subject']}")
-            
+
             # Create message preview
             msg = MIMEMultipart()
-            msg['From'] = GMAIL_ADDRESS
-            msg['To'] = email_data['to']
-            msg['Subject'] = email_data['subject']
-            msg.attach(MIMEText(email_data['body'], 'plain', 'utf-8'))
+            msg["From"] = GMAIL_ADDRESS
+            msg["To"] = email_data["to"]
+            msg["Subject"] = email_data["subject"]
+            msg.attach(MIMEText(email_data["body"], "plain", "utf-8"))
 
             # If we are in dry-run mode, just simulate send
             # The caller will pass a flag to decide.
             # Actual sending is handled in __main__ to keep this function testable.
-            results.append({
-                "index": idx,
-                "name": email_data['name'],
-                "company": email_data['company'],
-                "email": email_data['to'],
-                "status": "pending",
-                "timestamp": timestamp
-            })
+            results.append(
+                {
+                    "index": idx,
+                    "name": email_data["name"],
+                    "company": email_data["company"],
+                    "email": email_data["to"],
+                    "status": "pending",
+                    "timestamp": timestamp,
+                }
+            )
 
     except Exception as e:
         print(f"\n❌ Erro durante preparação das mensagens: {str(e)}")
         return False
-    
+
     # Salvar resultados
-    print("\n" + "="*88)
+    print("\n" + "=" * 88)
     print(f"📊 RESUMO: {sent_count}/{len(EMAILS_TO_SEND)} emails enviados com sucesso")
-    print("="*88 + "\n")
-    
+    print("=" * 88 + "\n")
+
     output_file = "wave1_sending_results.json"
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump({
-            "timestamp": timestamp,
-            "total_sent": sent_count,
-            "total_failed": len(EMAILS_TO_SEND) - sent_count,
-            "results": results
-        }, f, indent=2, ensure_ascii=False)
-    
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(
+            {
+                "timestamp": timestamp,
+                "total_sent": sent_count,
+                "total_failed": len(EMAILS_TO_SEND) - sent_count,
+                "results": results,
+            },
+            f,
+            indent=2,
+            ensure_ascii=False,
+        )
+
     print(f"📁 Resultados salvos em: {output_file}\n")
-    
-    print("="*88)
+
+    print("=" * 88)
     print("🎯 PRÓXIMAS AÇÕES")
-    print("="*88)
+    print("=" * 88)
     print("""
 1. ✅ Emails enviados para:
    - Mariana (Studio Beleza Premium)
@@ -320,91 +329,108 @@ def send_emails():
 
 Boa sorte! 🚀
 """)
-    
+
     return sent_count == len(EMAILS_TO_SEND)
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Enviar Wave1 emails via Gmail SMTP')
-    parser.add_argument('--dry-run', action='store_true', help='Simula o envio sem conectar ao SMTP')
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Enviar Wave1 emails via Gmail SMTP")
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Simula o envio sem conectar ao SMTP"
+    )
     args = parser.parse_args()
 
     if args.dry_run:
-        print('\nModo DRY-RUN ativado: nenhuma conexão SMTP será estabelecida.\n')
+        print("\nModo DRY-RUN ativado: nenhuma conexão SMTP será estabelecida.\n")
         success = send_emails()
         # mark simulated results file
-        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         simulated = {
-            'timestamp': timestamp,
-            'mode': 'dry-run',
-            'total_simulated': len(EMAILS_TO_SEND)
+            "timestamp": timestamp,
+            "mode": "dry-run",
+            "total_simulated": len(EMAILS_TO_SEND),
         }
-        with open('wave1_sending_results_simulated.json', 'w', encoding='utf-8') as f:
+        with open("wave1_sending_results_simulated.json", "w", encoding="utf-8") as f:
             json.dump(simulated, f, indent=2, ensure_ascii=False)
-        print('\nArquivo de simulação salvo em: wave1_sending_results_simulated.json')
+        print("\nArquivo de simulação salvo em: wave1_sending_results_simulated.json")
         exit(0 if success else 1)
     else:
         # Real send: resolve GMAIL_PASSWORD now (env or interactive) and connect
-        GMAIL_PASSWORD = os.environ.get('GMAIL_APP_PASSWORD')
+        GMAIL_PASSWORD = os.environ.get("GMAIL_APP_PASSWORD")
         if not GMAIL_PASSWORD:
             import getpass
-            GMAIL_PASSWORD = getpass.getpass('Enter Gmail App Password (input hidden): ')
+
+            GMAIL_PASSWORD = getpass.getpass(
+                "Enter Gmail App Password (input hidden): "
+            )
 
         try:
-            print('🔐 Conectando ao Gmail SMTP...')
-            server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+            print("🔐 Conectando ao Gmail SMTP...")
+            server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
             server.login(GMAIL_ADDRESS, GMAIL_PASSWORD)
-            print('✅ Conectado com sucesso!\n')
+            print("✅ Conectado com sucesso!\n")
 
             sent_count = 0
             results = []
-            timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
             for idx, email_data in enumerate(EMAILS_TO_SEND, 1):
                 try:
-                    print(f"\n📧 [{idx}/5] {email_data['name']} ({email_data['company']})")
+                    print(
+                        f"\n📧 [{idx}/5] {email_data['name']} ({email_data['company']})"
+                    )
                     print(f"    Para: {email_data['to']}")
                     print(f"    Assunto: {email_data['subject']}")
 
                     msg = MIMEMultipart()
-                    msg['From'] = GMAIL_ADDRESS
-                    msg['To'] = email_data['to']
-                    msg['Subject'] = email_data['subject']
-                    msg.attach(MIMEText(email_data['body'], 'plain', 'utf-8'))
+                    msg["From"] = GMAIL_ADDRESS
+                    msg["To"] = email_data["to"]
+                    msg["Subject"] = email_data["subject"]
+                    msg.attach(MIMEText(email_data["body"], "plain", "utf-8"))
 
                     server.send_message(msg)
-                    print('    ✅ Email enviado com sucesso!')
+                    print("    ✅ Email enviado com sucesso!")
                     sent_count += 1
-                    results.append({
-                        'index': idx,
-                        'name': email_data['name'],
-                        'company': email_data['company'],
-                        'email': email_data['to'],
-                        'status': 'enviado',
-                        'timestamp': timestamp
-                    })
+                    results.append(
+                        {
+                            "index": idx,
+                            "name": email_data["name"],
+                            "company": email_data["company"],
+                            "email": email_data["to"],
+                            "status": "enviado",
+                            "timestamp": timestamp,
+                        }
+                    )
 
                 except Exception as e:
-                    print(f'    ❌ Erro ao enviar: {str(e)}')
-                    results.append({
-                        'index': idx,
-                        'name': email_data['name'],
-                        'company': email_data['company'],
-                        'email': email_data['to'],
-                        'status': 'falha',
-                        'erro': str(e),
-                        'timestamp': timestamp
-                    })
+                    print(f"    ❌ Erro ao enviar: {str(e)}")
+                    results.append(
+                        {
+                            "index": idx,
+                            "name": email_data["name"],
+                            "company": email_data["company"],
+                            "email": email_data["to"],
+                            "status": "falha",
+                            "erro": str(e),
+                            "timestamp": timestamp,
+                        }
+                    )
 
             server.quit()
 
-            output_file = 'wave1_sending_results.json'
-            with open(output_file, 'w', encoding='utf-8') as f:
-                json.dump({
-                    'timestamp': timestamp,
-                    'total_sent': sent_count,
-                    'total_failed': len(EMAILS_TO_SEND) - sent_count,
-                    'results': results
-                }, f, indent=2, ensure_ascii=False)
+            output_file = "wave1_sending_results.json"
+            with open(output_file, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "timestamp": timestamp,
+                        "total_sent": sent_count,
+                        "total_failed": len(EMAILS_TO_SEND) - sent_count,
+                        "results": results,
+                    },
+                    f,
+                    indent=2,
+                    ensure_ascii=False,
+                )
 
             print(f"\n📁 Resultados salvos em: {output_file}\n")
             exit(0 if sent_count == len(EMAILS_TO_SEND) else 1)

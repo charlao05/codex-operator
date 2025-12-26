@@ -19,7 +19,6 @@ Exemplo com paths customizados:
 from __future__ import annotations
 
 import argparse
-import os
 from pathlib import Path
 from typing import Sequence
 
@@ -62,7 +61,7 @@ def _carregar_dependencias():
         from google_auth_oauthlib.flow import InstalledAppFlow  # type: ignore
         from google.auth.transport.requests import Request  # type: ignore
         from google.oauth2.credentials import Credentials  # type: ignore
-    except ImportError as exc:
+    except ImportError:
         print("[ERROR] Dependências OAuth não instaladas.")
         print("Execute: pip install google-auth-oauthlib google-auth")
         raise
@@ -80,18 +79,24 @@ def _mostrar_instrucao_env(output_file: Path) -> None:
     print("\n[Próximos passos]")
     print(f'1. Abra seu .env e adicione/atualize: GMAIL_CREDENTIALS_FILE="{abs_path}"')
     print('2. Defina também SENDER_EMAIL="seu-email@gmail.com" (ou conta equivalente)')
-    print("3. Para testar o envio real: python -m src.orchestrator nf --sales-file data/test_sale_gmail.json --send-gmail")
+    print(
+        "3. Para testar o envio real: python -m src.orchestrator nf --sales-file data/test_sale_gmail.json --send-gmail"
+    )
     print()
 
 
-def _tentar_reuso(output_file: Path, scopes: Sequence[str], force: bool, Request, Credentials) -> bool:
+def _tentar_reuso(
+    output_file: Path, scopes: Sequence[str], force: bool, Request, Credentials
+) -> bool:
     if not output_file.exists() or force:
         return False
 
     try:
         creds = Credentials.from_authorized_user_file(str(output_file), scopes)
     except Exception as exc:  # noqa: BLE001
-        print(f"[WARN] Não foi possível carregar token existente ({exc}). Gerando novo fluxo...")
+        print(
+            f"[WARN] Não foi possível carregar token existente ({exc}). Gerando novo fluxo..."
+        )
         return False
 
     if creds and creds.valid:
@@ -108,12 +113,19 @@ def _tentar_reuso(output_file: Path, scopes: Sequence[str], force: bool, Request
             _mostrar_instrucao_env(output_file)
             return True
         except Exception as exc:  # noqa: BLE001
-            print(f"[WARN] Refresh automático falhou ({exc}). Será necessário novo fluxo OAuth.")
+            print(
+                f"[WARN] Refresh automático falhou ({exc}). Será necessário novo fluxo OAuth."
+            )
 
     return False
 
 
-def setup_gmail_oauth(credentials_file: Path, output_file: Path, scopes: Sequence[str], force: bool = False) -> bool:
+def setup_gmail_oauth(
+    credentials_file: Path,
+    output_file: Path,
+    scopes: Sequence[str],
+    force: bool = False,
+) -> bool:
     InstalledAppFlow, Request, Credentials = _carregar_dependencias()
 
     credentials_file = credentials_file.expanduser()
@@ -140,11 +152,15 @@ def setup_gmail_oauth(credentials_file: Path, output_file: Path, scopes: Sequenc
         # Se o arquivo de credenciais estiver configurado com redirect tipo "urn:ietf:wg:oauth:2.0:oob",
         # usamos run_console (mostra código para copiar/colar). Caso contrário, mantemos run_local_server.
         redirect_uris = flow.client_config.get("redirect_uris", []) or []
-        use_console = any(uri.startswith("urn:ietf:wg:oauth:2.0:oob") for uri in redirect_uris)
+        use_console = any(
+            uri.startswith("urn:ietf:wg:oauth:2.0:oob") for uri in redirect_uris
+        )
 
         if use_console:
             print("[Info] Detectado fluxo OOB (urn:ietf:wg:oauth:2.0:oob).")
-            print("[Ação] Copie a URL abaixo, abra no navegador, autorize e cole o código gerado:")
+            print(
+                "[Ação] Copie a URL abaixo, abra no navegador, autorize e cole o código gerado:"
+            )
             auth_url, _ = flow.authorization_url(
                 prompt="consent",
                 access_type="offline",

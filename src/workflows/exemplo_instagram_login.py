@@ -8,7 +8,9 @@ from src.agents.site_agent import executar_plano, planejar
 
 
 def executar_exemplo() -> None:
-    objetivo = "abrir a página de login do Instagram e esperar o campo de usuário aparecer"
+    objetivo = (
+        "abrir a página de login do Instagram e esperar o campo de usuário aparecer"
+    )
     plano = planejar("instagram", objetivo)
     executar_plano("instagram", plano)
 

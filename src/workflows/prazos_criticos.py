@@ -11,7 +11,6 @@ Fluxo completo de execução do agente de deadlines:
 import json
 from pathlib import Path
 from datetime import datetime
-from typing import Optional
 
 from src.agents.deadlines_agent import (
     check_deadlines,
@@ -125,34 +124,40 @@ def exibir_resultado(resultado: dict) -> None:
     print("=" * 60)
 
     # Resumo
-    print(f"\n[RESUMO]")
+    print("\n[RESUMO]")
     print(f"   Total de alertas: {resultado['total_alerts']}")
     print(f"   [CRITICO] Críticos: {resultado['critical_count']}")
     print(f"   [ALTO] Altos: {resultado['high_count']}")
 
     # Alertas
     if resultado["alerts"]:
-        print(f"\n[PRAZOS PROXIMOS]")
+        print("\n[PRAZOS PROXIMOS]")
         for alert in resultado["alerts"][:5]:
-            icon = "[CRITICO]" if alert["priority"] == "critical" else "[ALTO]" if alert["priority"] == "high" else "[INFO]"
+            icon = (
+                "[CRITICO]"
+                if alert["priority"] == "critical"
+                else "[ALTO]"
+                if alert["priority"] == "high"
+                else "[INFO]"
+            )
             print(f"\n   {icon} {alert['name']}")
             print(f"      Vence: {alert['due_date']} ({alert['days_remaining']}d)")
             if alert["estimated_value"]:
                 print(f"      Valor: R$ {alert['estimated_value']:.2f}")
 
     # Mensagem
-    print(f"\n[NOTIFICACAO]")
+    print("\n[NOTIFICACAO]")
     print(f"\n{resultado['message']}\n")
 
     # Ações
     if resultado["actions"]:
-        print(f"[ACOES SUGERIDAS]")
+        print("[ACOES SUGERIDAS]")
         for i, action in enumerate(resultado["actions"], 1):
             print(f"\n   {i}. {action['suggested_action']}")
             if action.get("url"):
                 print(f"      {action['url']}")
             if action.get("steps"):
-                print(f"      Passos:")
+                print("      Passos:")
                 for step in action["steps"][:2]:
                     print(f"        * {step}")
 

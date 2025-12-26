@@ -1,6 +1,11 @@
 import pytest
 from pathlib import Path
-from src.agents.attendance_agent import carregar_agenda, carregar_mensagens, sugerir_slots_basicos, processar_mensagens
+from src.agents.attendance_agent import (
+    carregar_agenda,
+    carregar_mensagens,
+    sugerir_slots_basicos,
+    processar_mensagens,
+)
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 DATA_DIR = BASE_DIR / "data"
@@ -30,13 +35,16 @@ def test_sugerir_slots_basicos():
 
 def test_processar_mensagens_demo():
     contexto = "Salão de estética e beleza"
-    resultado = processar_mensagens(DATA_DIR / "mei_schedule.json", DATA_DIR / "mensagens_clientes.json", contexto)
+    resultado = processar_mensagens(
+        DATA_DIR / "mei_schedule.json", DATA_DIR / "mensagens_clientes.json", contexto
+    )
     assert isinstance(resultado, list)
     assert len(resultado) >= 2
     for r in resultado:
         assert "resposta" in r
         assert "slots_sugeridos" in r
         assert isinstance(r["slots_sugeridos"], list)
+
 
 if __name__ == "__main__":
     pytest.main([str(Path(__file__))])

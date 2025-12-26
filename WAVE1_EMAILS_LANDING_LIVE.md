@@ -1,10 +1,10 @@
 # 📧 WAVE 1 - EMAILS PRONTOS PARA ENVIO (Landing LIVE)
 
-**Data:** 4 de Dezembro, 2025  
-**Status:** ✅ PRONTO PARA ENVIO IMEDIATO  
-**Landing URL:** https://celadon-profiterole-b8e733.netlify.app  
-**Targets:** 5 Salões de Beleza  
-**Expectativa:** 1-2 respostas em 24-48h, 1-2 demos agendadas em 48-72h  
+**Data:** 4 de Dezembro, 2025
+**Status:** ✅ PRONTO PARA ENVIO IMEDIATO
+**Landing URL:** https://celadon-profiterole-b8e733.netlify.app
+**Targets:** 5 Salões de Beleza
+**Expectativa:** 1-2 respostas em 24-48h, 1-2 demos agendadas em 48-72h
 
 ---
 
@@ -19,7 +19,7 @@
 
 ## 📧 EMAIL #1 - MARIANA (Studio Beleza Premium)
 
-**Para:** contato@studiobeleza.com.br  
+**Para:** contato@studiobeleza.com.br
 **Assunto:** Mariana, você perde agendamentos por isso?
 
 ---
@@ -30,15 +30,15 @@ Rápida pergunta: quando você e a equipe conseguem responder emails de agendame
 
 Pergunto porque a maioria dos salões que a gente conversa gasta entre 1-2 horas DIÁRIAS respondendo emails, WhatsApp, formulários... tudo manualmente.
 
-Mariana, só isso representa ~10 horas por semana. 
+Mariana, só isso representa ~10 horas por semana.
 
 Pior: enquanto respondem manualmente, perdem agendamentos por atraso. Um cliente manda mensagem às 14h30, vocês só veem às 16h... já foi pra outro lugar.
 
 **O que a gente construiu:**
 
-Um sistema que responde automaticamente TODOS os agendamentos (email, WhatsApp, Google Forms) e organiza tudo em um calendário. 
+Um sistema que responde automaticamente TODOS os agendamentos (email, WhatsApp, Google Forms) e organiza tudo em um calendário.
 
-Resultado? 
+Resultado?
 
 - Studio Beleza X: 30 agendamentos/semana → ZERO emails manuais (8 horas/semana economizadas)
 - Taxa de conversão: subiu de 82% → 95% (clientes não perdem porque demora responder)
@@ -52,9 +52,9 @@ Abri 5 slots essa semana para demos rápidas (20 min). Mostro como funciona no s
 
 Leva 20 minutos e você já vê o impacto no seu fluxo.
 
-Abraço,  
-Charles Rodrigues  
-Codex Operator  
+Abraço,
+Charles Rodrigues
+Codex Operator
 (27) 9 9999-9999
 
 P.S. - Se 8 horas/semana economizadas + 13% de aumento de conversão soa interessante, manda msg que agendo mais rápido!
@@ -63,7 +63,7 @@ P.S. - Se 8 horas/semana economizadas + 13% de aumento de conversão soa interes
 
 ## 📧 EMAIL #2 - JULIANA (Estética Moderna)
 
-**Para:** atendimento@esteticamoderna.com  
+**Para:** atendimento@esteticamoderna.com
 **Assunto:** Juliana, como você gerencia 25+ agendamentos simultâneos?
 
 ---
@@ -91,7 +91,7 @@ Sistema automático que:
 
 Resultado: Recupera de R$ 3-4k/mês em receita.
 
-**Quer testar?** 
+**Quer testar?**
 
 Levantei 5 slots essa semana pra demos (20 minutos).
 
@@ -99,9 +99,9 @@ Levantei 5 slots essa semana pra demos (20 minutos).
 
 Me avisa se faz sentido pra vocês.
 
-Abraço,  
-Charles Rodrigues  
-Codex Operator  
+Abraço,
+Charles Rodrigues
+Codex Operator
 (27) 9 9999-9999
 
 P.S. - Tenho apenas 5 slots essa semana. Se interessar, responde hoje!
@@ -110,7 +110,7 @@ P.S. - Tenho apenas 5 slots essa semana. Se interessar, responde hoje!
 
 ## 📧 EMAIL #3 - PAULA (Belle Cabelereira)
 
-**Para:** contato@bellecabeleireira.com  
+**Para:** contato@bellecabeleireira.com
 **Assunto:** Paula, quanto vocês perdem com cancelamentos?
 
 ---
@@ -145,9 +145,9 @@ Abri 5 slots essa semana - 20 minutos de demo, sem compromisso.
 
 👉 Veja como funciona: https://celadon-profiterole-b8e733.netlify.app
 
-Abraço,  
-Charles Rodrigues  
-Codex Operator  
+Abraço,
+Charles Rodrigues
+Codex Operator
 (27) 9 9999-9999
 
 P.S. - Se R$ 800-1.200/semana em receita recuperada te interessa, me liga!
@@ -156,7 +156,7 @@ P.S. - Se R$ 800-1.200/semana em receita recuperada te interessa, me liga!
 
 ## 📧 EMAIL #4 - FERNANDA (Spa & Beleza)
 
-**Para:** reservas@spabeiezacentro.com  
+**Para:** reservas@spabeiezacentro.com
 **Assunto:** Fernanda, seu spa está perdendo espaço pra concorrência?
 
 ---
@@ -193,16 +193,16 @@ Abri 5 slots - leva 20 minutos.
 
 Se quiser testar, me avisa.
 
-Abraço,  
-Charles Rodrigues  
-Codex Operator  
+Abraço,
+Charles Rodrigues
+Codex Operator
 (27) 9 9999-9999
 
 ---
 
 ## 📧 EMAIL #5 - CAROLINA (Studio Nails)
 
-**Para:** contato@studionails.com.br  
+**Para:** contato@studionails.com.br
 **Assunto:** Carolina, você deixa dinheiro na mesa todos os dias?
 
 ---
@@ -241,9 +241,9 @@ Levantei 5 slots essa semana pra demos (20 min). Mostro no seu celular, ao vivo.
 
 Me avisa se faz sentido pra vocês.
 
-Abraço,  
-Charles Rodrigues  
-Codex Operator  
+Abraço,
+Charles Rodrigues
+Codex Operator
 (27) 9 9999-9999
 
 P.S. - Esses 5 slots vão rápido. Se tiver interesse, responde hoje mesmo!

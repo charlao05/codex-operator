@@ -29,7 +29,7 @@
   - Nome, URLs base
   - Seletores CSS (usuario, senha, botão login)
   - Timeouts customizáveis
-  
+
 - [x] `src/utils/config_loader.py`
   - Suporta novo padrão: `config/sites/{site}.yaml`
   - Fallback: `config/sites.yaml` (compatibilidade)
@@ -178,7 +178,7 @@ Recorrência (mensal): R$ 1.000
 
 ## 🚀 Visão Final
 
-Você transformou o "agente de navegador" em uma **máquina de gerar automações de marketing**. 
+Você transformou o "agente de navegador" em uma **máquina de gerar automações de marketing**.
 
 Isso significa:
 - Qualquer fluxo repetitivo de web + formulário vira produto

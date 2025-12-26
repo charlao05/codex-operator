@@ -1,6 +1,5 @@
 """Testes unitários para a integração Telegram API."""
 
-import json
 import pytest
 from unittest.mock import MagicMock, patch
 from src.integrations.telegram_api import TelegramAPI, send_nf_notification

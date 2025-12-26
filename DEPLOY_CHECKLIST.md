@@ -1,8 +1,8 @@
 # 🚀 LANDING PAGE DEPLOYMENT - STEP BY STEP
 
-**Status:** Ready to deploy  
-**Arquivo:** `landing/index.html`  
-**Tamanho:** 1.200+ linhas (mobile-responsive, conversion-optimized)  
+**Status:** Ready to deploy
+**Arquivo:** `landing/index.html`
+**Tamanho:** 1.200+ linhas (mobile-responsive, conversion-optimized)
 
 ---
 
@@ -185,7 +185,7 @@ Após landing estar LIVE:
 ## 🆘 TROUBLESHOOTING
 
 **P: "Erro ao fazer push para GitHub"**
-A: 
+A:
 ```powershell
 # Verificar remote
 git remote -v
@@ -198,7 +198,7 @@ git push -u origin main
 ```
 
 **P: "Deploy falha em Vercel"**
-A: 
+A:
 - Certificar que `landing/index.html` existe
 - Verificar que não tem erros HTML/CSS
 - Deletar deploy e tentar de novo
@@ -211,6 +211,6 @@ A:
 
 ---
 
-**Status:** ✅ Ready to deploy  
-**Tempo estimado:** 30 minutos total  
+**Status:** ✅ Ready to deploy
+**Tempo estimado:** 30 minutos total
 **Próximo:** Deploy agora? 🚀
