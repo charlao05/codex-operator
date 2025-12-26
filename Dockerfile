@@ -11,5 +11,5 @@ COPY . /app
 
 ENV PYTHONUNBUFFERED=1
 
-# Default command: show readiness message. Replace with your entrypoint when packaging.
-CMD ["python", "-c", "print('codex-operator container ready')"]
+# Default entrypoint: run CLI. Override at runtime if needed.
+ENTRYPOINT ["python", "-m", "src.cli"]
