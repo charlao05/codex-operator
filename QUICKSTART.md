@@ -143,7 +143,7 @@ pip install google-api-python-client google-auth google-auth-httplib2
 ### Configuração (`.env`)
 
 ```env
-OPENAI_API_KEY="sk-..."
+OPENAI_API_KEY="sk-..."  # pragma: allowlist secret
 
 # WhatsApp
 WHATSAPP_TOKEN="..."
