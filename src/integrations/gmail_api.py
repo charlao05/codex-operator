@@ -119,7 +119,33 @@ class GmailAPI:
             raise RuntimeError("SENDER_EMAIL não configurado para envio via Gmail")
 
         if service is None:
-            service = self._build_service()
+            try:
+                service = self._build_service()
+            except RuntimeError as exc:
+                # Fallback: tentar SMTP via EmailAPI (App Password ou SMTP config)
+                logger.warning("Gmail API não disponível: %s. Tentando fallback SMTP.", exc)
+                try:
+                    from src.integrations.email_api import EmailAPI
+
+                    # mapear GMAIL_APP_PASSWORD para EMAIL_SMTP_PASSWORD se presente
+                    gmail_app_pwd = os.getenv("GMAIL_APP_PASSWORD")
+                    smtp_host = os.getenv("EMAIL_SMTP_HOST")
+                    smtp_port = os.getenv("EMAIL_SMTP_PORT")
+                    smtp_user = os.getenv("EMAIL_SMTP_USER") or os.getenv("SENDER_EMAIL")
+                    smtp_password = os.getenv("EMAIL_SMTP_PASSWORD") or gmail_app_pwd
+
+                    email_client = EmailAPI(
+                        host=smtp_host,
+                        port=int(smtp_port) if smtp_port else None,
+                        user=smtp_user,
+                        password=smtp_password,
+                        sender=sender,
+                    )
+                    res = email_client.send_email(recipients, subject, body)
+                    return {"status": "sent-via-smtp", "detail": res}
+                except Exception:
+                    logger.exception("Fallback SMTP falhou")
+                    raise
 
         raw = self._prepare_raw_message(sender, recipients, subject, body)
         try:
@@ -133,7 +159,28 @@ class GmailAPI:
             return {"status": "sent", "id": res.get("id"), "raw": res}
         except Exception as exc:
             logger.exception("Falha ao enviar via Gmail API: %s", exc)
-            return {"status": "failed", "error": str(exc)}
+            # Se falhar via API, tentar fallback SMTP como última alternativa
+            try:
+                from src.integrations.email_api import EmailAPI
+
+                gmail_app_pwd = os.getenv("GMAIL_APP_PASSWORD")
+                smtp_host = os.getenv("EMAIL_SMTP_HOST")
+                smtp_port = os.getenv("EMAIL_SMTP_PORT")
+                smtp_user = os.getenv("EMAIL_SMTP_USER") or os.getenv("SENDER_EMAIL")
+                smtp_password = os.getenv("EMAIL_SMTP_PASSWORD") or gmail_app_pwd
+
+                email_client = EmailAPI(
+                    host=smtp_host,
+                    port=int(smtp_port) if smtp_port else None,
+                    user=smtp_user,
+                    password=smtp_password,
+                    sender=sender,
+                )
+                res2 = email_client.send_email(recipients, subject, body)
+                return {"status": "sent-via-smtp-after-api-fail", "detail": res2}
+            except Exception:
+                logger.exception("Fallback SMTP também falhou")
+                return {"status": "failed", "error": str(exc)}
 
     def send_message_from_sale(
         self, sale: Dict[str, Any], service: Optional[Any] = None

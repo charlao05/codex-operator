@@ -143,7 +143,7 @@ pip install google-api-python-client google-auth google-auth-httplib2
 ### Configuração (`.env`)
 
 ```env
-OPENAI_API_KEY="sk-..."
+OPENAI_API_KEY="sk-..."  # pragma: allowlist secret
 
 # WhatsApp
 WHATSAPP_TOKEN="..."
@@ -165,7 +165,7 @@ GMAIL_ACCESS_TOKEN="ya29..."  # access token do gcloud
 EMAIL_SMTP_HOST="smtp.gmail.com"
 EMAIL_SMTP_PORT="587"
 EMAIL_SMTP_USER="seu-email@gmail.com"
-EMAIL_SMTP_PASSWORD="app-password-16-chars"
+EMAIL_SMTP_PASSWORD="app-password-16-chars"  # pragma: allowlist secret
 SENDER_EMAIL="seu-email@gmail.com"
 ```
 
